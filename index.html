@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FACEIT Target Widget</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <div class="logo">
+            <span class="orange-dot"></span>
+            FACEIT TARGET
+        </div>
+
+        <div class="status">
+            ● LIVE TRACKING
+        </div>
+    </div>
+
+
+    <div class="players">
+
+        <!-- KRAJEWSKY -->
+
+        <div class="player-card">
+
+            <div class="avatar">
+                K
+            </div>
+
+            <div class="player-info">
+
+                <div class="small-title">
+                    YOUR PROFILE
+                </div>
+
+                <div class="nickname">
+                    -krajewsky-
+                </div>
+
+                <div class="country">
+                    🇵🇱 Poland
+                </div>
+
+            </div>
+
+            <div class="level">
+
+                <span>LVL</span>
+
+                <strong id="myLevel">
+                    10
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="vs">
+            VS
+        </div>
+
+
+        <!-- TOBOL -->
+
+        <div class="player-card target">
+
+            <div class="avatar target-avatar">
+                T
+            </div>
+
+            <div class="player-info">
+
+                <div class="small-title">
+                    TARGET
+                </div>
+
+                <div class="nickname">
+                    -TOBOL-
+                </div>
+
+                <div class="country">
+                    🇵🇱 Poland
+                </div>
+
+            </div>
+
+            <div class="level">
+
+                <span>LVL</span>
+
+                <strong id="targetLevel">
+                    10
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ELO -->
+
+    <div class="elo-section">
+
+        <div class="elo-box">
+
+            <span>ELO</span>
+
+            <strong id="myElo">
+                2145
+            </strong>
+
+        </div>
+
+
+        <div class="progress-area">
+
+            <div class="progress-text">
+
+                <span>
+                    Distance to target
+                </span>
+
+                <strong id="difference">
+                    +220 ELO
+                </strong>
+
+            </div>
+
+            <div class="progress">
+
+                <div
+                    id="progressBar"
+                    class="progress-fill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="elo-box target-elo">
+
+            <span>TARGET ELO</span>
+
+            <strong id="targetElo">
+                1925
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATYSTYKI -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <span>WINS</span>
+
+            <strong id="wins">
+                58%
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span>MATCHES</span>
+
+            <strong id="matches">
+                342
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span>K/D</span>
+
+            <strong id="kd">
+                1.18
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span>RECENT FORM</span>
+
+            <strong id="form">
+                W W L W W
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        <span>
+            FACEIT TARGET WIDGET
+        </span>
+
+        <span>
+            -krajewsky- vs -TOBOL-
+        </span>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
