@@ -1,128 +1,124 @@
-const data = {
+const API_BASE =
+  "https://faceit-target-api.szymonkrajewski70.workers.dev";
 
-    me: {
+const ME = "-krajewsky-";
+const TARGET = "-TOBOL-";
 
-        nickname: "-krajewsky-",
+async function getPlayer(nickname) {
+  const response = await fetch(
+    `${API_BASE}/?nickname=${encodeURIComponent(nickname)}`
+  );
 
-        level: 10,
+  if (!response.ok) {
+    let errorData;
 
-        elo: 2145,
-
-        wins: "58%",
-
-        matches: 342,
-
-        kd: "1.18",
-
-        form: "W W L W W"
-
-    },
-
-
-    target: {
-
-        nickname: "-TOBOL-",
-
-        level: 10,
-
-        elo: 1925
-
+    try {
+      errorData = await response.json();
+    } catch {
+      errorData = {};
     }
 
-};
-
-
-/* LEVEL */
-
-document.getElementById("myLevel").textContent =
-    data.me.level;
-
-document.getElementById("targetLevel").textContent =
-    data.target.level;
-
-
-/* ELO */
-
-document.getElementById("myElo").textContent =
-    data.me.elo.toLocaleString("en-US");
-
-document.getElementById("targetElo").textContent =
-    data.target.elo.toLocaleString("en-US");
-
-
-/* DIFFERENCE */
-
-const difference =
-    data.me.elo - data.target.elo;
-
-
-document.getElementById("difference").textContent =
-
-    (difference >= 0 ? "+" : "") +
-    difference +
-    " ELO";
-
-
-/* STATS */
-
-document.getElementById("wins").textContent =
-    data.me.wins;
-
-document.getElementById("matches").textContent =
-    data.me.matches;
-
-document.getElementById("kd").textContent =
-    data.me.kd;
-
-document.getElementById("form").textContent =
-    data.me.form;
-
-
-/* PROGRESS */
-
-const highest =
-    Math.max(
-        data.me.elo,
-        data.target.elo
+    throw new Error(
+      errorData.error ||
+      `FACEIT API error: ${response.status}`
     );
+  }
 
-
-const lowest =
-    Math.min(
-        data.me.elo,
-        data.target.elo
-    );
-
-
-let progress;
-
-
-if (highest === lowest) {
-
-    progress = 50;
-
-} else {
-
-    progress =
-        (
-            (data.me.elo - lowest) /
-            (highest - lowest)
-        ) * 100;
-
+  return response.json();
 }
 
+function setText(id, value) {
+  const element = document.getElementById(id);
 
-progress =
-    Math.max(
-        10,
-        Math.min(
-            90,
-            progress
-        )
+  if (element) {
+    element.textContent = value;
+  }
+}
+
+function updateProgress(myElo, targetElo) {
+  const highest = Math.max(myElo, targetElo);
+  const lowest = Math.min(myElo, targetElo);
+
+  let progress;
+
+  if (highest === lowest) {
+    progress = 50;
+  } else {
+    progress =
+      ((myElo - lowest) / (highest - lowest)) * 100;
+  }
+
+  progress = Math.max(
+    10,
+    Math.min(90, progress)
+  );
+
+  const progressBar =
+    document.getElementById("progressBar");
+
+  if (progressBar) {
+    progressBar.style.width = `${progress}%`;
+  }
+}
+
+async function loadPlayers() {
+  try {
+    const [me, target] = await Promise.all([
+      getPlayer(ME),
+      getPlayer(TARGET),
+    ]);
+
+    console.log("FACEIT - me:", me);
+    console.log("FACEIT - target:", target);
+
+    // LEVEL
+    setText("myLevel", me.level ?? "-");
+    setText("targetLevel", target.level ?? "-");
+
+    // ELO
+    const myElo = Number(me.elo) || 0;
+    const targetElo = Number(target.elo) || 0;
+
+    setText(
+      "myElo",
+      myElo.toLocaleString("en-US")
     );
 
+    setText(
+      "targetElo",
+      targetElo.toLocaleString("en-US")
+    );
 
-document.getElementById(
-    "progressBar"
-).style.width =
-    progress + "%";
+    // ELO DIFFERENCE
+    const difference = myElo - targetElo;
+
+    setText(
+      "difference",
+      `${difference >= 0 ? "+" : ""}${difference} ELO`
+    );
+
+    // PROGRESS BAR
+    updateProgress(myElo, targetElo);
+
+    // Nicknames
+    console.log(`Loaded ${me.nickname} vs ${target.nickname}`);
+
+  } catch (error) {
+    console.error("FACEIT Widget Error:", error);
+
+    setText("myLevel", "ERR");
+    setText("targetLevel", "ERR");
+    setText("myElo", "ERR");
+    setText("targetElo", "ERR");
+    setText("difference", "API ERROR");
+
+    const progressBar =
+      document.getElementById("progressBar");
+
+    if (progressBar) {
+      progressBar.style.width = "50%";
+    }
+  }
+}
+
+loadPlayers();
