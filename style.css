@@ -1,0 +1,542 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: #ffffff;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #1b2029 0%,
+            #080a0e 55%
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 25px;
+}
+
+
+.container {
+
+    width: 100%;
+
+    max-width: 1000px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #12161d,
+            #0b0e13
+        );
+
+    border: 1px solid #292f39;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 80px
+        rgba(0,0,0,.55);
+}
+
+
+/* HEADER */
+
+.header {
+
+    height: 65px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 0 28px;
+
+    border-bottom:
+        1px solid #282d36;
+}
+
+
+.logo {
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+
+.orange-dot {
+
+    display: inline-block;
+
+    width: 9px;
+
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #ff5a13;
+
+    box-shadow:
+        0 0 14px
+        rgba(255,90,19,.8);
+
+    margin-right: 9px;
+}
+
+
+.status {
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    color: #747d89;
+}
+
+
+/* PLAYERS */
+
+.players {
+
+    padding: 35px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        65px
+        1fr;
+
+    gap: 15px;
+
+    align-items: center;
+}
+
+
+.player-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 17px;
+
+    padding: 22px;
+
+    background: #161a21;
+
+    border: 1px solid #2a303a;
+
+    border-radius: 16px;
+}
+
+
+.target {
+
+    background:
+        linear-gradient(
+            145deg,
+            #171b22,
+            #12151b
+        );
+}
+
+
+.avatar {
+
+    width: 62px;
+
+    height: 62px;
+
+    border-radius: 14px;
+
+    background: #282e38;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 25px;
+
+    font-weight: 900;
+}
+
+
+.target-avatar {
+
+    background: #392017;
+
+    color: #ff6a27;
+}
+
+
+.player-info {
+
+    flex: 1;
+}
+
+
+.small-title {
+
+    font-size: 9px;
+
+    color: #777f8b;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 6px;
+}
+
+
+.nickname {
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    margin-bottom: 5px;
+}
+
+
+.country {
+
+    font-size: 12px;
+
+    color: #8d95a2;
+}
+
+
+.level {
+
+    text-align: center;
+}
+
+
+.level span {
+
+    display: block;
+
+    font-size: 9px;
+
+    color: #727a86;
+
+    letter-spacing: 1px;
+}
+
+
+.level strong {
+
+    font-size: 34px;
+
+    line-height: 1;
+}
+
+
+.vs {
+
+    width: 42px;
+
+    height: 42px;
+
+    margin: auto;
+
+    border-radius: 50%;
+
+    border: 1px solid #363c46;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    color: #8d95a2;
+}
+
+
+/* ELO */
+
+.elo-section {
+
+    margin: 0 35px;
+
+    padding: 25px 0;
+
+    border-top:
+        1px solid #282d36;
+
+    border-bottom:
+        1px solid #282d36;
+
+    display: grid;
+
+    grid-template-columns:
+        120px
+        1fr
+        120px;
+
+    gap: 25px;
+
+    align-items: end;
+}
+
+
+.elo-box span {
+
+    display: block;
+
+    font-size: 9px;
+
+    color: #747d89;
+
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+
+    margin-bottom: 6px;
+}
+
+
+.elo-box strong {
+
+    font-size: 25px;
+}
+
+
+.target-elo {
+
+    text-align: right;
+}
+
+
+.progress-text {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+
+    font-size: 11px;
+
+    color: #858e9a;
+}
+
+
+.progress-text strong {
+
+    color: #ff6a27;
+}
+
+
+.progress {
+
+    width: 100%;
+
+    height: 7px;
+
+    background: #272c34;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.progress-fill {
+
+    height: 100%;
+
+    width: 65%;
+
+    background: #ff5a13;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 15px
+        rgba(255,90,19,.5);
+}
+
+
+/* STATS */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    padding: 26px 35px;
+}
+
+
+.stat {
+
+    padding: 0 20px;
+
+    border-right:
+        1px solid #282d36;
+}
+
+
+.stat:first-child {
+
+    padding-left: 0;
+}
+
+
+.stat:last-child {
+
+    border-right: none;
+}
+
+
+.stat span {
+
+    display: block;
+
+    font-size: 9px;
+
+    color: #747d89;
+
+    letter-spacing: 1.2px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+}
+
+
+.stat strong {
+
+    font-size: 16px;
+}
+
+
+/* FOOTER */
+
+.footer {
+
+    padding: 16px 28px;
+
+    background: #090c10;
+
+    color: #626a76;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    display: flex;
+
+    justify-content: space-between;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    body {
+
+        padding: 12px;
+    }
+
+
+    .players {
+
+        grid-template-columns: 1fr;
+
+        padding: 20px;
+    }
+
+
+    .vs {
+
+        transform:
+            rotate(90deg);
+    }
+
+
+    .elo-section {
+
+        margin: 0 20px;
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+
+    .progress-area {
+
+        grid-column: 1 / -1;
+
+        grid-row: 2;
+    }
+
+
+    .stats {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 22px;
+
+        padding: 25px 20px;
+    }
+
+
+    .stat {
+
+        border: none;
+
+        padding: 0;
+    }
+
+
+    .nickname {
+
+        font-size: 18px;
+    }
+
+
+    .footer {
+
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+}
