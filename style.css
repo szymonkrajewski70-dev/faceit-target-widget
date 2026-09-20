@@ -540,3 +540,147 @@ body {
     }
 
 }
+/* =========================
+   TARGET SEARCH
+   ========================= */
+
+.target-search {
+    display: flex;
+    gap: 10px;
+    padding: 20px 35px;
+    border-bottom: 1px solid #282d36;
+}
+
+.target-search input {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    padding: 0 15px;
+
+    background: #0d1117;
+    border: 1px solid #303641;
+    border-radius: 10px;
+
+    color: #ffffff;
+    font-size: 13px;
+    outline: none;
+
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.target-search input::placeholder {
+    color: #68717e;
+}
+
+.target-search input:focus {
+    border-color: #ff5a13;
+    box-shadow: 0 0 0 3px rgba(255, 90, 19, .10);
+}
+
+.target-search button {
+    height: 44px;
+    padding: 0 22px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: #ff5a13;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: transform .15s, background .15s, box-shadow .15s;
+}
+
+.target-search button:hover {
+    background: #ff6a27;
+    box-shadow: 0 0 18px rgba(255, 90, 19, .25);
+    transform: translateY(-1px);
+}
+
+.target-search button:active {
+    transform: translateY(0);
+}
+
+.target-search button:disabled {
+    opacity: .6;
+    cursor: wait;
+    transform: none;
+}
+
+
+/* =========================
+   PLAYER AVATARS
+   ========================= */
+
+.avatar {
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+
+/* =========================
+   RECENT FORM
+   ========================= */
+
+#form {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+#form span {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 18px;
+    height: 20px;
+
+    font-size: 14px;
+    font-weight: 900;
+
+    line-height: 1;
+}
+
+#form .form-win {
+    color: #35d07f;
+    text-shadow: 0 0 10px rgba(53, 208, 127, .25);
+}
+
+#form .form-loss {
+    color: #ff4d5a;
+    text-shadow: 0 0 10px rgba(255, 77, 90, .25);
+}
+
+
+/* =========================
+   MOBILE SEARCH
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .target-search {
+        padding: 15px 20px;
+    }
+
+    .target-search button {
+        padding: 0 16px;
+    }
+
+}
