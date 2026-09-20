@@ -13,7 +13,9 @@
 
 <div class="container">
 
+    <!-- HEADER -->
     <div class="header">
+
         <div class="logo">
             <span class="orange-dot"></span>
             FACEIT TARGET
@@ -22,17 +24,39 @@
         <div class="status">
             ● LIVE TRACKING
         </div>
+
     </div>
 
 
+    <!-- TARGET SEARCH -->
+    <div class="target-search">
+
+        <input
+            id="targetInput"
+            type="text"
+            placeholder="Wpisz nick gracza FACEIT..."
+            autocomplete="off"
+        >
+
+        <button id="searchButton">
+            SEARCH
+        </button>
+
+    </div>
+
+
+    <!-- PLAYERS -->
     <div class="players">
 
-        <!-- KRAJEWSKY -->
-
+        <!-- MY PROFILE -->
         <div class="player-card">
 
             <div class="avatar">
-                K
+                <img
+                    id="myAvatar"
+                    src=""
+                    alt="Avatar"
+                >
             </div>
 
             <div class="player-info">
@@ -41,11 +65,11 @@
                     YOUR PROFILE
                 </div>
 
-                <div class="nickname">
+                <div class="nickname" id="myNickname">
                     -krajewsky-
                 </div>
 
-                <div class="country">
+                <div class="country" id="myCountry">
                     🇵🇱 Poland
                 </div>
 
@@ -56,7 +80,7 @@
                 <span>LVL</span>
 
                 <strong id="myLevel">
-                    10
+                    -
                 </strong>
 
             </div>
@@ -64,17 +88,21 @@
         </div>
 
 
+        <!-- VS -->
         <div class="vs">
             VS
         </div>
 
 
-        <!-- TOBOL -->
-
+        <!-- TARGET -->
         <div class="player-card target">
 
             <div class="avatar target-avatar">
-                T
+                <img
+                    id="targetAvatar"
+                    src=""
+                    alt="Avatar"
+                >
             </div>
 
             <div class="player-info">
@@ -83,11 +111,11 @@
                     TARGET
                 </div>
 
-                <div class="nickname">
+                <div class="nickname" id="targetNickname">
                     -TOBOL-
                 </div>
 
-                <div class="country">
+                <div class="country" id="targetCountry">
                     🇵🇱 Poland
                 </div>
 
@@ -98,7 +126,7 @@
                 <span>LVL</span>
 
                 <strong id="targetLevel">
-                    10
+                    -
                 </strong>
 
             </div>
@@ -109,7 +137,6 @@
 
 
     <!-- ELO -->
-
     <div class="elo-section">
 
         <div class="elo-box">
@@ -117,7 +144,7 @@
             <span>ELO</span>
 
             <strong id="myElo">
-                2145
+                -
             </strong>
 
         </div>
@@ -132,7 +159,7 @@
                 </span>
 
                 <strong id="difference">
-                    +220 ELO
+                    -
                 </strong>
 
             </div>
@@ -151,10 +178,12 @@
 
         <div class="elo-box target-elo">
 
-            <span>TARGET ELO</span>
+            <span>
+                TARGET ELO
+            </span>
 
             <strong id="targetElo">
-                1925
+                -
             </strong>
 
         </div>
@@ -162,16 +191,17 @@
     </div>
 
 
-    <!-- STATYSTYKI -->
-
+    <!-- STATS -->
     <div class="stats">
 
         <div class="stat">
 
-            <span>WINS</span>
+            <span>
+                WINS
+            </span>
 
             <strong id="wins">
-                58%
+                -
             </strong>
 
         </div>
@@ -179,10 +209,12 @@
 
         <div class="stat">
 
-            <span>MATCHES</span>
+            <span>
+                MATCHES
+            </span>
 
             <strong id="matches">
-                342
+                -
             </strong>
 
         </div>
@@ -190,10 +222,12 @@
 
         <div class="stat">
 
-            <span>K/D</span>
+            <span>
+                K/D
+            </span>
 
             <strong id="kd">
-                1.18
+                -
             </strong>
 
         </div>
@@ -201,10 +235,12 @@
 
         <div class="stat">
 
-            <span>RECENT FORM</span>
+            <span>
+                RECENT FORM
+            </span>
 
             <strong id="form">
-                W W L W W
+                -
             </strong>
 
         </div>
@@ -212,13 +248,14 @@
     </div>
 
 
+    <!-- FOOTER -->
     <div class="footer">
 
         <span>
             FACEIT TARGET WIDGET
         </span>
 
-        <span>
+        <span id="footerPlayers">
             -krajewsky- vs -TOBOL-
         </span>
 
