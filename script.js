@@ -9,22 +9,17 @@ async function getPlayer(nickname) {
     `${API_BASE}/?nickname=${encodeURIComponent(nickname)}`
   );
 
+  const data = await response.json();
+
   if (!response.ok) {
-    let errorData;
-
-    try {
-      errorData = await response.json();
-    } catch {
-      errorData = {};
-    }
-
     throw new Error(
-      errorData.error ||
+      data.message ||
+      data.error ||
       `FACEIT API error: ${response.status}`
     );
   }
 
-  return response.json();
+  return data;
 }
 
 function setText(id, value) {
@@ -61,21 +56,50 @@ function updateProgress(myElo, targetElo) {
   }
 }
 
+function formatRecentForm(results) {
+  if (!Array.isArray(results) || results.length === 0) {
+    return "-";
+  }
+
+  return results
+    .slice(0, 5)
+    .map(result => {
+      if (result === 1 || result === "1") {
+        return "W";
+      }
+
+      if (result === 0 || result === "0") {
+        return "L";
+      }
+
+      if (result === -1 || result === "-1") {
+        return "L";
+      }
+
+      return "?";
+    })
+    .join(" ");
+}
+
 async function loadPlayers() {
   try {
     const [me, target] = await Promise.all([
       getPlayer(ME),
-      getPlayer(TARGET),
+      getPlayer(TARGET)
     ]);
 
     console.log("FACEIT - me:", me);
     console.log("FACEIT - target:", target);
 
-    // LEVEL
+    /*
+     * LEVEL
+     */
     setText("myLevel", me.level ?? "-");
     setText("targetLevel", target.level ?? "-");
 
-    // ELO
+    /*
+     * ELO
+     */
     const myElo = Number(me.elo) || 0;
     const targetElo = Number(target.elo) || 0;
 
@@ -89,7 +113,9 @@ async function loadPlayers() {
       targetElo.toLocaleString("en-US")
     );
 
-    // ELO DIFFERENCE
+    /*
+     * ELO DIFFERENCE
+     */
     const difference = myElo - targetElo;
 
     setText(
@@ -97,19 +123,59 @@ async function loadPlayers() {
       `${difference >= 0 ? "+" : ""}${difference} ELO`
     );
 
-    // PROGRESS BAR
+    /*
+     * LIVE STATISTICS
+     */
+    if (me.stats) {
+      setText(
+        "wins",
+        me.stats.wins != null
+          ? `${me.stats.wins}%`
+          : "-"
+      );
+
+      setText(
+        "matches",
+        me.stats.matches != null
+          ? me.stats.matches
+          : "-"
+      );
+
+      setText(
+        "kd",
+        me.stats.kd != null
+          ? Number(me.stats.kd).toFixed(2)
+          : "-"
+      );
+
+      setText(
+        "form",
+        formatRecentForm(
+          me.stats.recentResults
+        )
+      );
+    }
+
+    /*
+     * PROGRESS BAR
+     */
     updateProgress(myElo, targetElo);
 
-    // Nicknames
-    console.log(`Loaded ${me.nickname} vs ${target.nickname}`);
-
   } catch (error) {
-    console.error("FACEIT Widget Error:", error);
+    console.error(
+      "FACEIT Widget Error:",
+      error
+    );
 
     setText("myLevel", "ERR");
     setText("targetLevel", "ERR");
     setText("myElo", "ERR");
     setText("targetElo", "ERR");
+
+    setText("wins", "ERR");
+    setText("matches", "ERR");
+    setText("kd", "ERR");
+    setText("form", "ERR");
     setText("difference", "API ERROR");
 
     const progressBar =
