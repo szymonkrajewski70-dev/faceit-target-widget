@@ -1233,3 +1233,33 @@ document.addEventListener(
         }
     }
 );
+/* =========================
+   AUTO REFRESH
+========================= */
+
+let autoRefreshRunning = false;
+
+setInterval(async () => {
+    if (autoRefreshRunning) {
+        return;
+    }
+
+    autoRefreshRunning = true;
+
+    try {
+        const currentTarget =
+            window.currentTargetPlayer?.nickname ||
+            DEFAULT_TARGET;
+
+        await loadPlayers(
+            currentTarget
+        );
+    } catch (error) {
+        console.error(
+            "Auto refresh error:",
+            error
+        );
+    } finally {
+        autoRefreshRunning = false;
+    }
+}, 10 * 60 * 1000);
