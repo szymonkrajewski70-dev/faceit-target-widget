@@ -433,9 +433,16 @@ function renderPlayerRow(
             ? Number(recent.kd)
             : null;
 
-    const recentHs =
+    const rawRecentHs =
         recent.headshots !== null
             ? Number(recent.headshots)
+            : null;
+
+    const recentHs =
+        Number.isFinite(rawRecentHs) &&
+        rawRecentHs >= 0 &&
+        rawRecentHs <= 100
+            ? rawRecentHs
             : null;
 
     const elo =
@@ -797,21 +804,26 @@ function renderComparison(
        pokazujemy + ile masz przewagi.
     */
 
-    const missingElement =
+   const missingElement =
         $("eloMissing");
 
     if (missingElement) {
         if (
             Number.isFinite(
-                eloDifference
+                myElo
+            ) &&
+            Number.isFinite(
+                targetElo
             )
         ) {
+            const missing =
+                Math.max(
+                    0,
+                    targetElo - myElo
+                );
+
             missingElement.textContent =
-                eloDifference > 0
-                    ? `-${eloDifference}`
-                    : `+${Math.abs(
-                        eloDifference
-                    )}`;
+                String(missing);
         } else {
             missingElement.textContent =
                 "—";
