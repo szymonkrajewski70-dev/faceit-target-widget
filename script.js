@@ -108,19 +108,18 @@ function setAvatar(elementId, avatar, nickname) {
     if (nickname === "-krajewsky-") {
         imageUrl =
             "https://distribution.faceit-cdn.net/images/ee7c7d24-f0b0-46c0-be3d-ab7bf505a751.jpg";
-    } else if (avatar) {
-        imageUrl =
-            `${API_BASE}/avatar?url=${encodeURIComponent(avatar)}`;
     }
 
     if (imageUrl) {
         const image = document.createElement("img");
 
-        image.src = imageUrl;
+        image.src =
+            `${API_BASE}/avatar?url=${encodeURIComponent(imageUrl)}`;
+
         image.alt = `${nickname} avatar`;
 
         image.onerror = () => {
-            container.innerHTML =
+            container.textContent =
                 nickname.charAt(0).toUpperCase();
         };
 
