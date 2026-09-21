@@ -97,7 +97,7 @@ function formatCountry(country) {
 // AVATAR
 // =========================
 
-async function setAvatar(elementId, avatar, nickname) {
+async function setAvatar(elementId, avatar, nickname) {    
     const container = getElement(elementId);
     if (!container) return;
 
