@@ -195,7 +195,7 @@ function renderTarget(player) {
     getElement("targetNickname").textContent =
         player.nickname || "-";
 
-    getElement("targetCountry").textContent =
+    getElement("targetCountry").innerHTML =
         formatCountry(player.country);
 
     getElement("targetLevel").textContent =
@@ -465,3 +465,10 @@ getElement("targetInput")
 // =========================
 
 loadPlayers(DEFAULT_TARGET);
+.country-flag {
+    display: block;
+    width: 24px;
+    height: 16px;
+    object-fit: cover;
+    border-radius: 2px;
+}
