@@ -59,11 +59,18 @@ function countryFlag(country) {
 
 
 function formatCountry(country) {
+    if (!country) return "";
 
-    if (!country) {
-        return "";
-    }
+    const code = country.toLowerCase();
 
+    return `
+        <img
+            src="https://flagcdn.com/w40/${code}.png"
+            alt="${country.toUpperCase()}"
+            class="country-flag"
+        >
+    `;
+}
     const names = {
         PL: "Poland",
         DE: "Germany",
