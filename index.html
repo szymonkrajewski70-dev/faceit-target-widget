@@ -2,269 +2,620 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>FACEIT Target Widget</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
 
 <body>
 
 <div class="container">
 
-    <!-- HEADER -->
-    <div class="header">
+    <!-- =========================
+         HEADER
+    ========================== -->
 
-        <div class="logo">
-            <span class="orange-dot"></span>
-            FACEIT TARGET
+    <header class="header">
+
+        <div class="header-left">
+
+            <div class="logo">
+                <span class="orange-dot"></span>
+                FACEIT TARGET
+            </div>
+
+            <div class="game-label">
+                CS2
+            </div>
+
         </div>
 
-        <div class="status">
-            ● LIVE TRACKING
+        <div
+            class="api-status"
+            id="apiStatus"
+        >
+            ● API ONLINE
         </div>
 
-    </div>
+    </header>
 
 
-    <!-- TARGET SEARCH -->
-    <div class="target-search">
+    <!-- =========================
+         PLAYERS
+    ========================== -->
 
-        <input
-            id="targetInput"
-            type="text"
-            placeholder="Wpisz nick gracza FACEIT..."
-            autocomplete="off"
+    <main class="players-panel">
+
+        <!-- =====================
+             MY PLAYER
+        ====================== -->
+
+        <section
+            class="player-row my-player"
+            id="myPlayerRow"
         >
 
-        <button id="searchButton">
-            SEARCH
-        </button>
+            <!-- PLAYER IDENTITY -->
 
-    </div>
+            <div class="player-identity">
 
-
-    <!-- PLAYERS -->
-    <div class="players">
-
-        <!-- MY PROFILE -->
-        <div class="player-card">
-
-            <div class="avatar">
-                <img
-                    id="myAvatar"
-                    src=""
-                    alt="Avatar"
-                >
-            </div>
-
-            <div class="player-info">
-
-                <div class="small-title">
-                    YOUR PROFILE
+                <div class="avatar-wrap">
+                    <img
+                        id="myAvatar"
+                        src=""
+                        alt="Avatar"
+                    >
                 </div>
 
-                <div class="nickname" id="myNickname">
-                    -krajewsky-
+                <div class="player-name-block">
+
+                    <div class="player-role">
+                        YOUR PROFILE
+                    </div>
+
+                    <div
+                        class="nickname"
+                        id="myNickname"
+                    >
+                        -krajewsky-
+                    </div>
+
+                    <div class="country-row">
+
+                        <span
+                            id="myCountry"
+                            class="country"
+                        ></span>
+
+                    </div>
+
                 </div>
 
-                <div class="country" id="myCountry">
-                    🇵🇱 Poland
-                </div>
+                <div class="level-box">
 
-            </div>
+                    <span>LVL</span>
 
-            <div class="level">
+                    <strong id="myLevel">
+                        -
+                    </strong>
 
-                <span>LVL</span>
-
-                <strong id="myLevel">
-                    -
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <!-- VS -->
-        <div class="vs">
-            VS
-        </div>
-
-
-        <!-- TARGET -->
-        <div class="player-card target">
-
-            <div class="avatar target-avatar">
-                <img
-                    id="targetAvatar"
-                    src=""
-                    alt="Avatar"
-                >
-            </div>
-
-            <div class="player-info">
-
-                <div class="small-title">
-                    TARGET
-                </div>
-
-                <div class="nickname" id="targetNickname">
-                    -TOBOL-
-                </div>
-
-                <div class="country" id="targetCountry">
-                    🇵🇱 Poland
                 </div>
 
             </div>
 
-            <div class="level">
 
-                <span>LVL</span>
+            <!-- ELO -->
 
-                <strong id="targetLevel">
-                    -
-                </strong>
+            <div class="player-elo">
 
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ELO -->
-    <div class="elo-section">
-
-        <div class="elo-box">
-
-            <span>ELO</span>
-
-            <strong id="myElo">
-                -
-            </strong>
-
-        </div>
-
-
-        <div class="progress-area">
-
-            <div class="progress-text">
-
-                <span>
-                    Distance to target
-                </span>
-
-                <strong id="difference">
-                    -
-                </strong>
-
-            </div>
-
-            <div class="progress">
+                <div class="metric-label">
+                    ELO
+                </div>
 
                 <div
-                    id="progressBar"
-                    class="progress-fill">
+                    class="elo-value"
+                    id="myElo"
+                >
+                    -
                 </div>
+
+                <div class="elo-24h">
+
+                    24H
+
+                    <strong
+                        id="myElo24h"
+                        class="neutral"
+                    >
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- LIFETIME STATS -->
+
+            <div class="player-metrics">
+
+                <div class="metric">
+
+                    <span>MATCHES</span>
+
+                    <strong id="myMatches">
+                        -
+                    </strong>
+
+                </div>
+
+                <div class="metric">
+
+                    <span>WIN RATE</span>
+
+                    <strong id="myWins">
+                        -
+                    </strong>
+
+                </div>
+
+                <div class="metric">
+
+                    <span>K/D</span>
+
+                    <strong id="myKd">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECENT 5 -->
+
+            <div class="recent-block">
+
+                <div class="recent-title">
+                    LAST 5
+                </div>
+
+                <div
+                    id="myForm"
+                    class="form"
+                >
+                    <span class="form-empty">
+                        —
+                    </span>
+                </div>
+
+                <div class="recent-summary">
+
+                    <span>
+                        <b id="myRecentWins">0</b> W
+                    </span>
+
+                    <span>
+                        <b id="myRecentLosses">0</b> L
+                    </span>
+
+                    <span>
+                        <b id="myRecentWinRate">—</b>
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECENT STATS -->
+
+            <div class="recent-stats">
+
+                <div class="mini-stat">
+
+                    <span>K</span>
+
+                    <strong id="myKills">
+                        —
+                    </strong>
+
+                </div>
+
+                <div class="mini-stat">
+
+                    <span>D</span>
+
+                    <strong id="myDeaths">
+                        —
+                    </strong>
+
+                </div>
+
+                <div class="mini-stat">
+
+                    <span>K/D</span>
+
+                    <strong id="myRecentKd">
+                        —
+                    </strong>
+
+                </div>
+
+                <div class="mini-stat">
+
+                    <span>HS</span>
+
+                    <strong id="myHeadshots">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TARGET PLAYER
+        ========================== -->
+
+        <section
+            class="player-row target-player"
+            id="targetPlayerRow"
+        >
+
+            <!-- PLAYER IDENTITY -->
+
+            <div class="player-identity">
+
+                <div class="avatar-wrap">
+                    <img
+                        id="targetAvatar"
+                        src=""
+                        alt="Avatar"
+                    >
+                </div>
+
+                <div class="player-name-block">
+
+                    <div class="player-role">
+                        TARGET
+                    </div>
+
+                    <div
+                        class="nickname"
+                        id="targetNickname"
+                    >
+                        -TOBOL-
+                    </div>
+
+                    <div class="country-row">
+
+                        <span
+                            id="targetCountry"
+                            class="country"
+                        ></span>
+
+                    </div>
+
+                </div>
+
+                <div class="level-box">
+
+                    <span>LVL</span>
+
+                    <strong id="targetLevel">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- ELO -->
+
+            <div class="player-elo">
+
+                <div class="metric-label">
+                    ELO
+                </div>
+
+                <div
+                    class="elo-value"
+                    id="targetElo"
+                >
+                    -
+                </div>
+
+                <div class="elo-24h">
+
+                    24H
+
+                    <strong
+                        id="targetElo24h"
+                        class="neutral"
+                    >
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- LIFETIME STATS -->
+
+            <div class="player-metrics">
+
+                <div class="metric">
+
+                    <span>MATCHES</span>
+
+                    <strong id="targetMatches">
+                        -
+                    </strong>
+
+                </div>
+
+                <div class="metric">
+
+                    <span>WIN RATE</span>
+
+                    <strong id="targetWins">
+                        -
+                    </strong>
+
+                </div>
+
+                <div class="metric">
+
+                    <span>K/D</span>
+
+                    <strong id="targetKd">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECENT 5 -->
+
+            <div class="recent-block">
+
+                <div class="recent-title">
+                    LAST 5
+                </div>
+
+                <div
+                    id="targetForm"
+                    class="form"
+                >
+                    <span class="form-empty">
+                        —
+                    </span>
+                </div>
+
+                <div class="recent-summary">
+
+                    <span>
+                        <b id="targetRecentWins">0</b> W
+                    </span>
+
+                    <span>
+                        <b id="targetRecentLosses">0</b> L
+                    </span>
+
+                    <span>
+                        <b id="targetRecentWinRate">—</b>
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECENT STATS -->
+
+            <div class="recent-stats">
+
+                <div class="mini-stat">
+
+                    <span>K</span>
+
+                    <strong id="targetKills">
+                        —
+                    </strong>
+
+                </div>
+
+                <div class="mini-stat">
+
+                    <span>D</span>
+
+                    <strong id="targetDeaths">
+                        —
+                    </strong>
+
+                </div>
+
+                <div class="mini-stat">
+
+                    <span>K/D</span>
+
+                    <strong id="targetRecentKd">
+                        —
+                    </strong>
+
+                </div>
+
+                <div class="mini-stat">
+
+                    <span>HS</span>
+
+                    <strong id="targetHeadshots">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         COMPARISON
+    ========================== -->
+
+    <section class="comparison-panel">
+
+        <div class="comparison-title">
+            COMPARISON
+        </div>
+
+
+        <div class="comparison-grid">
+
+            <div class="comparison-card">
+
+                <span>ELO DIFFERENCE</span>
+
+                <strong id="comparisonElo">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="comparison-card">
+
+                <span>MY ELO GAP</span>
+
+                <strong id="eloMissing">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="comparison-card">
+
+                <span>MATCHES</span>
+
+                <strong>
+                    <span id="comparisonMyMatches">
+                        —
+                    </span>
+                    <span class="vs-small">
+                        VS
+                    </span>
+                    <span id="comparisonTargetMatches">
+                        —
+                    </span>
+                </strong>
+
+            </div>
+
+
+            <div class="comparison-card">
+
+                <span>WIN RATE DIFF.</span>
+
+                <strong id="comparisonWinRate">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="comparison-card">
+
+                <span>K/D DIFF.</span>
+
+                <strong id="comparisonKd">
+                    —
+                </strong>
 
             </div>
 
         </div>
 
+    </section>
 
-        <div class="elo-box target-elo">
 
-            <span>
-                TARGET ELO
-            </span>
+    <!-- =========================
+         SEARCH
+    ========================== -->
 
-            <strong id="targetElo">
-                -
-            </strong>
+    <section class="search-panel">
+
+        <div class="search-label">
+            SEARCH FACEIT PLAYER
+        </div>
+
+        <div class="target-search">
+
+            <input
+                id="targetInput"
+                type="text"
+                placeholder="Wpisz nick gracza FACEIT..."
+                autocomplete="off"
+            >
+
+            <button
+                id="searchButton"
+                type="button"
+            >
+                SZUKAJ
+            </button>
 
         </div>
 
-    </div>
+        <div
+            id="error"
+            class="error-message"
+        ></div>
+
+    </section>
 
 
-    <!-- STATS -->
-    <div class="stats">
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
-        <div class="stat">
-
-            <span>
-                WINS
-            </span>
-
-            <strong id="wins">
-                -
-            </strong>
-
-        </div>
-
-
-        <div class="stat">
-
-            <span>
-                MATCHES
-            </span>
-
-            <strong id="matches">
-                -
-            </strong>
-
-        </div>
-
-
-        <div class="stat">
-
-            <span>
-                K/D
-            </span>
-
-            <strong id="kd">
-                -
-            </strong>
-
-        </div>
-
-
-        <div class="stat">
-
-            <span>
-                RECENT FORM
-            </span>
-
-            <strong id="form">
-                -
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    <!-- FOOTER -->
-    <div class="footer">
+    <footer class="footer">
 
         <span>
             FACEIT TARGET WIDGET
         </span>
 
-        <span id="footerPlayers">
+        <span
+            id="footerPlayers"
+        >
             -krajewsky- vs -TOBOL-
         </span>
 
-    </div>
+    </footer>
 
 </div>
 
 
-<script src="script.js?v=999"></script>  
+<script src="script.js?v=1000"></script>
 
 </body>
 </html>
