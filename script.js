@@ -1,8 +1,24 @@
 const API_BASE =
     "https://faceit-target-api.szymonkrajewski70.workers.dev";
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
 
-const ME = "-krajewsky-";
-const DEFAULT_TARGET = "-TOBOL-";
+const requestedMe =
+    params.get("me")?.trim();
+
+const ME =
+    requestedMe || "-krajewsky-";
+
+const DEFAULT_TARGET =
+    params.get("target")?.trim() ||
+    (
+        ME.toLowerCase() ===
+        "-tobol-".toLowerCase()
+            ? "-krajewsky-"
+            : "-TOBOL-"
+    );
 
 /* =========================
    HELPERS
