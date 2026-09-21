@@ -766,14 +766,53 @@ function renderComparison(
     const targetElo =
         Number(targetPlayer.elo);
 
+    /*
+        RÓŻNICA ELO:
+        moje ELO - ELO przeciwnika
+
+        Przykład:
+        1051 - 1942 = -891
+    */
+
     const eloDifference =
-        targetElo - myElo;
+        Number.isFinite(myElo) &&
+        Number.isFinite(targetElo)
+            ? myElo - targetElo
+            : null;
+
+    /*
+        ILE BRAKUJE DO PRZECIWNIKA
+
+        Jeżeli przeciwnik ma więcej ELO,
+        pokazujemy różnicę.
+
+        Jeżeli mam tyle samo albo więcej,
+        pokazujemy 0.
+    */
+
+    const eloMissing =
+        Number.isFinite(myElo) &&
+        Number.isFinite(targetElo)
+            ? Math.max(
+                0,
+                targetElo - myElo
+            )
+            : null;
+
+
+    /* =========================
+       WIN RATE
+    ========================== */
 
     const myWinRate =
-        getLifetimeWinRate(myPlayer);
+        getLifetimeWinRate(
+            myPlayer
+        );
 
     const targetWinRate =
-        getLifetimeWinRate(targetPlayer);
+        getLifetimeWinRate(
+            targetPlayer
+        );
 
     const winRateDifference =
         myWinRate !== null &&
@@ -782,67 +821,64 @@ function renderComparison(
               targetWinRate
             : null;
 
+
+    /* =========================
+       K/D
+    ========================== */
+
     const myKd =
-        getLifetimeKd(myPlayer);
+        getLifetimeKd(
+            myPlayer
+        );
 
     const targetKd =
-        getLifetimeKd(targetPlayer);
+        getLifetimeKd(
+            targetPlayer
+        );
 
     const kdDifference =
         myKd !== null &&
         targetKd !== null
-            ? myKd - targetKd
+            ? myKd -
+              targetKd
             : null;
 
-    /*
-       ELO MISSING
 
-       Jeżeli przeciwnik ma więcej ELO,
-       pokazujemy ile brakuje.
+    /* =========================
+       ELO DIFFERENCE
+    ========================== */
 
-       Jeżeli masz więcej ELO,
-       pokazujemy + ile masz przewagi.
-    */
-
-   const missingElement =
-        $("eloMissing");
-
-    if (missingElement) {
-        if (
-            Number.isFinite(
-                myElo
-            ) &&
-            Number.isFinite(
-                targetElo
-            )
-        ) {
-            const missing =
-                Math.max(
-                    0,
-                    targetElo - myElo
-                );
-
-            missingElement.textContent =
-                String(missing);
-        } else {
-            missingElement.textContent =
-                "—";
-        }
-    }
-
-    const eloDifferenceElement =
+    const eloElement =
         $("comparisonElo");
 
-    if (eloDifferenceElement) {
-        eloDifferenceElement.textContent =
-            Number.isFinite(
-                eloDifference
-            )
+    if (eloElement) {
+        eloElement.textContent =
+            eloDifference !== null
                 ? formatSigned(
                     eloDifference
                 )
                 : "—";
     }
+
+
+    /* =========================
+       ELO MISSING TEXT
+    ========================== */
+
+    const missingText =
+        $("eloMissingText");
+
+    if (missingText) {
+        missingText.textContent =
+            eloMissing !== null
+                ? `${eloMissing} brakuje do przeciwnika`
+                : "—";
+    }
+
+
+    /* =========================
+       WIN RATE DIFFERENCE
+    ========================== */
 
     const winRateElement =
         $("comparisonWinRate");
@@ -850,12 +886,17 @@ function renderComparison(
     if (winRateElement) {
         winRateElement.textContent =
             winRateDifference !== null
-                ? formatSigned(
+                ? `${formatSigned(
                     winRateDifference,
                     0
-                ) + "%"
+                )}%`
                 : "—";
     }
+
+
+    /* =========================
+       K/D DIFFERENCE
+    ========================== */
 
     const kdElement =
         $("comparisonKd");
@@ -870,35 +911,43 @@ function renderComparison(
                 : "—";
     }
 
+
+    /* =========================
+       MY MATCHES
+    ========================== */
+
     const myMatchesElement =
         $("comparisonMyMatches");
 
     if (myMatchesElement) {
-        myMatchesElement.textContent =
+        const matches =
             getLifetimeMatches(
                 myPlayer
-            ) !== null
-                ? String(
-                    getLifetimeMatches(
-                        myPlayer
-                    )
-                )
+            );
+
+        myMatchesElement.textContent =
+            matches !== null
+                ? String(matches)
                 : "—";
     }
+
+
+    /* =========================
+       TARGET MATCHES
+    ========================== */
 
     const targetMatchesElement =
         $("comparisonTargetMatches");
 
     if (targetMatchesElement) {
-        targetMatchesElement.textContent =
+        const matches =
             getLifetimeMatches(
                 targetPlayer
-            ) !== null
-                ? String(
-                    getLifetimeMatches(
-                        targetPlayer
-                    )
-                )
+            );
+
+        targetMatchesElement.textContent =
+            matches !== null
+                ? String(matches)
                 : "—";
     }
 }
