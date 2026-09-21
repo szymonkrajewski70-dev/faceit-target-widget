@@ -435,11 +435,3 @@ getElement("targetInput")
 // START
 // =========================
 
-loadPlayers(DEFAULT_TARGET);
-.country-flag {
-    display: block;
-    width: 24px;
-    height: 16px;
-    object-fit: cover;
-    border-radius: 2px;
-}
