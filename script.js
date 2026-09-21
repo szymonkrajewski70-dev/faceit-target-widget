@@ -97,7 +97,7 @@ function formatCountry(country) {
 // AVATAR
 // =========================
 
-function setAvatar(elementId, avatar, nickname) {
+async function setAvatar(elementId, avatar, nickname) {
     const container = getElement(elementId);
     if (!container) return;
 
@@ -110,32 +110,53 @@ function setAvatar(elementId, avatar, nickname) {
             "https://distribution.faceit-cdn.net/images/ee7c7d24-f0b0-46c0-be3d-ab7bf505a751.jpg";
     }
 
-    if (imageUrl) {
-        const image = document.createElement("img");
+    const showFallback = () => {
+        container.innerHTML = "";
+        container.textContent =
+            nickname.charAt(0).toUpperCase();
+    };
 
-        image.src =
-            `${API_BASE}/avatar?url=${encodeURIComponent(imageUrl)}`;
+    if (!imageUrl) {
+        showFallback();
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `${API_BASE}/avatar?url=${encodeURIComponent(imageUrl)}`
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                `Avatar request failed: ${response.status}`
+            );
+        }
+
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+
+        const image = document.createElement("img");
 
         image.alt = `${nickname} avatar`;
 
-        image.onerror = () => {
-            container.textContent =
-                nickname.charAt(0).toUpperCase();
+        image.onload = () => {
+            URL.revokeObjectURL(objectUrl);
         };
 
+        image.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            showFallback();
+        };
+
+        image.src = objectUrl;
+
         container.appendChild(image);
-    } else {
-        container.textContent =
-            nickname.charAt(0).toUpperCase();
+
+    } catch (error) {
+        console.error("Avatar error:", error);
+        showFallback();
     }
 }
-
-    
-
-    
-
-       
-
 
 
 // =========================
