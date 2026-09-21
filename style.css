@@ -1517,3 +1517,69 @@ body,
 html {
     overflow-x: hidden;
 }
+/* =========================================================
+   OFFICIAL FACEIT RANK BADGE
+========================================================= */
+
+.level-ring {
+    width: 78px;
+    height: 78px;
+
+    flex: 0 0 78px;
+
+    margin-right: -16px;
+
+    background: transparent !important;
+
+    border-radius: 0;
+
+    box-shadow: none !important;
+}
+
+.level-ring::after {
+    display: none !important;
+}
+
+.level-number {
+    position: relative;
+    z-index: 2;
+
+    width: 78px;
+    height: 78px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0 !important;
+    border-radius: 0;
+
+    background: transparent !important;
+
+    font-size: 0;
+}
+
+.faceit-rank-image {
+    display: block;
+
+    width: 78px;
+    height: 78px;
+
+    object-fit: contain;
+
+    background: transparent;
+
+    filter:
+        drop-shadow(
+            0 6px 12px
+            rgba(0, 0, 0, 0.35)
+        );
+}
+
+.target-player .level-ring {
+    background: transparent !important;
+
+    box-shadow: none !important;
+}
