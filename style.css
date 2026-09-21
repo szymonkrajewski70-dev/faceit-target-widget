@@ -1303,3 +1303,175 @@ body {
         gap: 5px;
     }
 }
+/* =========================================================
+   FINAL WIDE PLAYER ROW FIX
+========================================================= */
+
+.player-main {
+    display: grid;
+
+    grid-template-columns:
+        360px
+        120px
+        120px
+        120px
+        minmax(180px, 1fr)
+        260px;
+
+    align-items: center;
+
+    min-width: 0;
+
+    gap: 0;
+}
+
+/* avatar + nickname occupy first column together visually */
+
+.avatar-section {
+    grid-column: 1;
+    grid-row: 1;
+
+    width: 150px;
+}
+
+.player-info {
+    grid-column: 1;
+    grid-row: 1;
+
+    margin-left: 150px;
+
+    padding-left: 18px;
+
+    width: 205px;
+}
+
+/* lifetime stats */
+
+.player-main > .stat-block:nth-of-type(1) {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.player-main > .stat-block:nth-of-type(2) {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.player-main > .stat-block:nth-of-type(3) {
+    grid-column: 4;
+    grid-row: 1;
+}
+
+/* last 5 */
+
+.recent-block {
+    grid-column: 5;
+    grid-row: 1;
+
+    border-left: 1px solid #35404b;
+}
+
+/* wins / losses */
+
+.recent-result-panel {
+    grid-column: 6;
+    grid-row: 1;
+
+    border-left: 1px solid #35404b;
+
+    padding-left: 14px;
+}
+
+/* hide the extra K / D / K-D / HS row
+   so the player stays in one compact line */
+
+.compact-stats {
+    display: none !important;
+}
+
+/* keep everything inside the widget */
+
+.player-main > * {
+    min-width: 0;
+}
+
+.player-row {
+    overflow: hidden;
+}
+
+/* =========================================================
+   DESKTOP SIZE
+========================================================= */
+
+@media (min-width: 1100px) {
+
+    .player-row {
+        min-height: 118px;
+    }
+
+    .player-main {
+        min-height: 82px;
+    }
+
+    .nickname {
+        font-size: 20px;
+    }
+
+    .elo-line strong {
+        font-size: 22px;
+    }
+
+    .form-result {
+        width: 34px;
+        height: 34px;
+    }
+
+    .result-box {
+        width: 82px;
+    }
+
+    .recent-winrate {
+        width: 82px;
+    }
+}
+
+/* =========================================================
+   MEDIUM SCREEN
+========================================================= */
+
+@media (max-width: 1099px) and (min-width: 821px) {
+
+    .player-main {
+        grid-template-columns:
+            330px
+            100px
+            100px
+            100px
+            minmax(160px, 1fr)
+            220px;
+    }
+
+    .avatar-section {
+        width: 140px;
+    }
+
+    .player-info {
+        margin-left: 140px;
+
+        width: 190px;
+
+        padding-left: 12px;
+    }
+
+    .nickname {
+        font-size: 17px;
+    }
+
+    .result-box {
+        width: 68px;
+    }
+
+    .recent-winrate {
+        width: 68px;
+    }
+}
