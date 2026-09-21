@@ -142,7 +142,7 @@ function renderMyProfile(player) {
     getElement("myNickname").textContent =
         player.nickname || ME;
 
-    getElement("myCountry").textContent =
+    getElement("myCountry").innerHTML =
         formatCountry(player.country);
 
     getElement("myLevel").textContent =
