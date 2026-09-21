@@ -113,7 +113,8 @@ function setAvatar(elementId, avatar, nickname) {
     if (imageUrl) {
         const image = document.createElement("img");
 
-        image.src = imageUrl;
+        image.src =
+            `${API_BASE}/avatar?url=${encodeURIComponent(imageUrl)}`;
 
         image.alt = `${nickname} avatar`;
 
