@@ -57,7 +57,8 @@ function formatCountry(country) {
         return "";
     }
 
-    const code = String(country).toLowerCase();
+    const code =
+        String(country).toLowerCase();
 
     return `
         <img
@@ -66,6 +67,32 @@ function formatCountry(country) {
             class="country-flag"
         >
     `;
+}
+
+
+/* =========================
+   FACEIT RANK BADGES
+========================= */
+
+function getFaceitRankImage(level) {
+    const rankImages = {
+        1: "https://support.faceit.com/hc/article_attachments/11345480868764",
+        2: "https://support.faceit.com/hc/article_attachments/11345494083356",
+        3: "https://support.faceit.com/hc/article_attachments/11345519346332",
+        4: "https://support.faceit.com/hc/article_attachments/11345507782300",
+        5: "https://support.faceit.com/hc/article_attachments/11345494079004",
+        6: "https://support.faceit.com/hc/article_attachments/11345526591772",
+        7: "https://support.faceit.com/hc/article_attachments/11345507775388",
+        8: "https://support.faceit.com/hc/article_attachments/11345494072220",
+        9: "https://support.faceit.com/hc/article_attachments/11345519335964",
+        10: "https://support.faceit.com/hc/article_attachments/11345507770524"
+    };
+
+    return (
+        rankImages[
+            Number(level)
+        ] || null
+    );
 }
 
 /* =========================
@@ -489,9 +516,54 @@ function renderPlayerRow(
     const level =
         $(`${prefix}Level`);
 
+    const levelNumber =
+        Number(player.level);
+
     if (level) {
         level.textContent =
-            safeText(player.level);
+            Number.isFinite(levelNumber)
+                ? String(levelNumber)
+                : "—";
+    }
+
+    const levelText =
+        $(`${prefix}LevelText`);
+
+    if (levelText) {
+        levelText.textContent =
+            Number.isFinite(levelNumber)
+                ? String(levelNumber)
+                : "—";
+    }
+
+    const row =
+        prefix === "my"
+            ? $("myPlayerRow")
+            : $("targetPlayerRow");
+
+    const levelRing =
+        row?.querySelector(
+            ".level-ring"
+        );
+
+    const rankImage =
+        getFaceitRankImage(
+            levelNumber
+        );
+
+    if (
+        levelRing &&
+        rankImage
+    ) {
+        levelRing.innerHTML = `
+            <div class="level-number">
+                <img
+                    src="${rankImage}"
+                    alt="FACEIT Level ${levelNumber}"
+                    class="faceit-rank-image"
+                >
+            </div>
+        `;
     }
 
     /* ELO */
