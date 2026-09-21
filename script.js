@@ -97,14 +97,9 @@ function formatCountry(country) {
 // AVATAR
 // =========================
 
-async function setAvatar(elementId, avatar, nickname) {
+function setAvatar(elementId, avatar, nickname) {
     const imageElement = getElement(elementId);
     if (!imageElement) return;
-
-    const container = imageElement.parentElement;
-    if (!container) return;
-
-    container.innerHTML = "";
 
     let imageUrl = avatar;
 
@@ -114,63 +109,23 @@ async function setAvatar(elementId, avatar, nickname) {
     }
 
     if (!imageUrl) {
-        const fallback = document.createElement("span");
-        fallback.textContent =
+        imageElement.removeAttribute("src");
+        imageElement.alt =
             nickname.charAt(0).toUpperCase();
-        container.appendChild(fallback);
         return;
     }
 
-    try {
-        const response = await fetch(
-            `${API_BASE}/avatar?url=${encodeURIComponent(imageUrl)}`
-        );
+    imageElement.alt = `${nickname} avatar`;
 
-        if (!response.ok) {
-            throw new Error(
-                `Avatar request failed: ${response.status}`
-            );
-        }
-
-        const blob = await response.blob();
-        const objectUrl = URL.createObjectURL(blob);
-
-        const image = document.createElement("img");
-
-        image.src = objectUrl;
-        image.alt = `${nickname} avatar`;
-
-        image.onload = () => {
-            URL.revokeObjectURL(objectUrl);
-        };
-
-        image.onerror = () => {
-            URL.revokeObjectURL(objectUrl);
-
-            container.innerHTML = "";
-
-            const fallback = document.createElement("span");
-            fallback.textContent =
-                nickname.charAt(0).toUpperCase();
-
-            container.appendChild(fallback);
-        };
-
-        container.appendChild(image);
-
-    } catch (error) {
-        console.error("Avatar error:", error);
-
-        container.innerHTML = "";
-
-        const fallback = document.createElement("span");
-        fallback.textContent =
+    imageElement.onerror = () => {
+        imageElement.removeAttribute("src");
+        imageElement.alt =
             nickname.charAt(0).toUpperCase();
+    };
 
-        container.appendChild(fallback);
-    }
+    imageElement.src =
+        `${API_BASE}/avatar?url=${encodeURIComponent(imageUrl)}`;
 }
-
 // =========================
 // MY PROFILE
 // =========================
