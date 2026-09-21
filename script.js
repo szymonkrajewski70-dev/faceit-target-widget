@@ -98,7 +98,10 @@ function formatCountry(country) {
 // =========================
 
 async function setAvatar(elementId, avatar, nickname) {
-    const container = getElement(elementId);
+    const imageElement = getElement(elementId);
+    if (!imageElement) return;
+
+    const container = imageElement.parentElement;
     if (!container) return;
 
     container.innerHTML = "";
@@ -111,8 +114,10 @@ async function setAvatar(elementId, avatar, nickname) {
     }
 
     if (!imageUrl) {
-        container.textContent =
+        const fallback = document.createElement("span");
+        fallback.textContent =
             nickname.charAt(0).toUpperCase();
+        container.appendChild(fallback);
         return;
     }
 
@@ -135,22 +140,34 @@ async function setAvatar(elementId, avatar, nickname) {
         image.src = objectUrl;
         image.alt = `${nickname} avatar`;
 
-        image.onerror = () => {
-            URL.revokeObjectURL(objectUrl);
-            container.textContent =
-                nickname.charAt(0).toUpperCase();
-        };
-
         image.onload = () => {
             URL.revokeObjectURL(objectUrl);
+        };
+
+        image.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+
+            container.innerHTML = "";
+
+            const fallback = document.createElement("span");
+            fallback.textContent =
+                nickname.charAt(0).toUpperCase();
+
+            container.appendChild(fallback);
         };
 
         container.appendChild(image);
 
     } catch (error) {
         console.error("Avatar error:", error);
-        container.textContent =
+
+        container.innerHTML = "";
+
+        const fallback = document.createElement("span");
+        fallback.textContent =
             nickname.charAt(0).toUpperCase();
+
+        container.appendChild(fallback);
     }
 }
 
