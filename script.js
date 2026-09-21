@@ -71,34 +71,6 @@ function formatCountry(country) {
         >
     `;
 }
-    const names = {
-        PL: "Poland",
-        DE: "Germany",
-        GB: "United Kingdom",
-        FR: "France",
-        ES: "Spain",
-        IT: "Italy",
-        US: "United States",
-        CA: "Canada",
-        SE: "Sweden",
-        NO: "Norway",
-        DK: "Denmark",
-        FI: "Finland",
-        NL: "Netherlands",
-        BE: "Belgium",
-        CZ: "Czech Republic",
-        SK: "Slovakia",
-        UA: "Ukraine",
-        RU: "Russia",
-        BR: "Brazil",
-        TR: "Turkey"
-    };
-
-    const code = country.toUpperCase();
-
-    return countryFlag(code);
-}
-
 
 // =========================
 // AVATAR
