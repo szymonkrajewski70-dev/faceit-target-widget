@@ -684,3 +684,11 @@ body {
     }
 
 }
+.country-flag {
+    display: inline-block;
+    width: 24px;
+    height: 16px;
+    object-fit: cover;
+    border-radius: 2px;
+    vertical-align: middle;
+}
