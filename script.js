@@ -1263,3 +1263,93 @@ setInterval(async () => {
         autoRefreshRunning = false;
     }
 }, 10 * 60 * 1000);
+/* =========================
+   FACEIT WEBHOOK WATCHER
+========================= */
+
+let lastWebhookTimestamp = null;
+let webhookCheckRunning = false;
+
+async function checkWebhookStatus() {
+    if (webhookCheckRunning) {
+        return;
+    }
+
+    webhookCheckRunning = true;
+
+    try {
+        const response = await fetch(
+            `${API_BASE}/status`,
+            {
+                cache: "no-store"
+            }
+        );
+
+        if (!response.ok) {
+            return;
+        }
+
+        const status =
+            await response.json();
+
+        const updatedAt =
+            Number(status?.updatedAt);
+
+        if (
+            !Number.isFinite(
+                updatedAt
+            )
+        ) {
+            return;
+        }
+
+        if (
+            lastWebhookTimestamp === null
+        ) {
+            lastWebhookTimestamp =
+                updatedAt;
+
+            return;
+        }
+
+        if (
+            updatedAt >
+            lastWebhookTimestamp
+        ) {
+            lastWebhookTimestamp =
+                updatedAt;
+
+            const currentTarget =
+                window.currentTargetPlayer
+                    ?.nickname ||
+                DEFAULT_TARGET;
+
+            console.log(
+                "FACEIT: wykryto zakończenie meczu — odświeżam widget"
+            );
+
+            await loadPlayers(
+                currentTarget
+            );
+        }
+
+    } catch (error) {
+        console.error(
+            "Webhook watcher error:",
+            error
+        );
+    } finally {
+        webhookCheckRunning =
+            false;
+    }
+}
+
+setInterval(
+    checkWebhookStatus,
+    10 * 1000
+);
+
+setTimeout(
+    checkWebhookStatus,
+    2000
+);
