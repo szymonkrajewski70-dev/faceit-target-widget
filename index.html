@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
@@ -19,17 +21,23 @@
 
 <div class="container">
 
-    <!-- =========================
+    <!-- =====================================================
          HEADER
-    ========================== -->
+    ====================================================== -->
 
     <header class="header">
 
-        <div class="header-left">
+        <div class="header-brand">
+
+            <div class="target-icon">
+                ◎
+            </div>
+
+            <div class="brand-divider"></div>
 
             <div class="logo">
-                <span class="orange-dot"></span>
-                FACEIT TARGET
+                <span>FACEIT</span>
+                <strong>TARGET</strong>
             </div>
 
             <div class="game-label">
@@ -42,40 +50,68 @@
             class="api-status"
             id="apiStatus"
         >
-            ● API ONLINE
+            <span class="api-dot"></span>
+            API ONLINE
         </div>
 
     </header>
 
 
-    <!-- =========================
+    <!-- =====================================================
          PLAYERS
-    ========================== -->
+    ====================================================== -->
 
     <main class="players-panel">
 
-        <!-- =====================
+
+        <!-- =================================================
              MY PLAYER
-        ====================== -->
+        ================================================== -->
 
         <section
             class="player-row my-player"
             id="myPlayerRow"
         >
 
-            <!-- PLAYER IDENTITY -->
+            <div class="player-main">
 
-            <div class="player-identity">
 
-                <div class="avatar-wrap">
-                    <img
-                        id="myAvatar"
-                        src=""
-                        alt="Avatar"
-                    >
+                <!-- AVATAR + LEVEL -->
+
+                <div class="avatar-section">
+
+                    <div class="level-ring">
+
+                        <div class="level-number">
+                            <span id="myLevel">
+                                5
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="avatar-wrap">
+
+                        <img
+                            id="myAvatar"
+                            src=""
+                            alt="Avatar"
+                        >
+
+                    </div>
+
+                    <div class="flag-wrap">
+
+                        <span id="myCountry"></span>
+
+                    </div>
+
                 </div>
 
-                <div class="player-name-block">
+
+                <!-- PLAYER INFO -->
+
+                <div class="player-info">
 
                     <div class="player-role">
                         YOUR PROFILE
@@ -88,175 +124,182 @@
                         -krajewsky-
                     </div>
 
-                    <div class="country-row">
+                    <div class="elo-line">
+
+                        <strong id="myElo">
+                            —
+                        </strong>
+
+                        <span>
+                            ELO
+                        </span>
 
                         <span
-                            id="myCountry"
-                            class="country"
-                        ></span>
+                            id="myElo24h"
+                            class="elo-change neutral"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+                    <div class="level-text">
+                        Level
+                        <span id="myLevelText">
+                            5
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- LIFETIME STATS -->
+
+                <div class="stat-block">
+
+                    <span class="stat-label">
+                        MECZE
+                    </span>
+
+                    <strong id="myMatches">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-block">
+
+                    <span class="stat-label">
+                        WIN RATE
+                    </span>
+
+                    <strong id="myWins">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-block">
+
+                    <span class="stat-label">
+                        K/D
+                    </span>
+
+                    <strong id="myKd">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <!-- LAST 5 -->
+
+                <div class="recent-block">
+
+                    <span class="stat-label">
+                        OSTATNIE 5
+                    </span>
+
+                    <div
+                        id="myForm"
+                        class="form"
+                    >
+                        <span class="form-empty">
+                            —
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- RECENT SUMMARY -->
+
+                <div class="recent-result-panel">
+
+                    <div class="result-box wins">
+
+                        <strong id="myRecentWins">
+                            0
+                        </strong>
+
+                        <span>
+                            WINS
+                        </span>
+
+                    </div>
+
+                    <div class="result-box losses">
+
+                        <strong id="myRecentLosses">
+                            0
+                        </strong>
+
+                        <span>
+                            LOSSES
+                        </span>
+
+                    </div>
+
+                    <div class="recent-winrate">
+
+                        <span>
+                            WIN RATE
+                        </span>
+
+                        <strong id="myRecentWinRate">
+                            —
+                        </strong>
 
                     </div>
 
                 </div>
 
-                <div class="level-box">
 
-                    <span>LVL</span>
+                <!-- RECENT STATS -->
 
-                    <strong id="myLevel">
-                        -
-                    </strong>
+                <div class="compact-stats">
 
-                </div>
+                    <div class="compact-stat">
 
-            </div>
+                        <span>K</span>
 
+                        <strong id="myKills">
+                            —
+                        </strong>
 
-            <!-- ELO -->
+                    </div>
 
-            <div class="player-elo">
+                    <div class="compact-stat">
 
-                <div class="metric-label">
-                    ELO
-                </div>
+                        <span>D</span>
 
-                <div
-                    class="elo-value"
-                    id="myElo"
-                >
-                    -
-                </div>
+                        <strong id="myDeaths">
+                            —
+                        </strong>
 
-                <div class="elo-24h">
+                    </div>
 
-                    24H
+                    <div class="compact-stat">
 
-                    <strong
-                        id="myElo24h"
-                        class="neutral"
-                    >
-                        —
-                    </strong>
+                        <span>K/D</span>
 
-                </div>
+                        <strong id="myRecentKd">
+                            —
+                        </strong>
 
-            </div>
+                    </div>
 
+                    <div class="compact-stat">
 
-            <!-- LIFETIME STATS -->
+                        <span>HS</span>
 
-            <div class="player-metrics">
+                        <strong id="myHeadshots">
+                            —
+                        </strong>
 
-                <div class="metric">
-
-                    <span>MATCHES</span>
-
-                    <strong id="myMatches">
-                        -
-                    </strong>
-
-                </div>
-
-                <div class="metric">
-
-                    <span>WIN RATE</span>
-
-                    <strong id="myWins">
-                        -
-                    </strong>
-
-                </div>
-
-                <div class="metric">
-
-                    <span>K/D</span>
-
-                    <strong id="myKd">
-                        -
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- RECENT 5 -->
-
-            <div class="recent-block">
-
-                <div class="recent-title">
-                    LAST 5
-                </div>
-
-                <div
-                    id="myForm"
-                    class="form"
-                >
-                    <span class="form-empty">
-                        —
-                    </span>
-                </div>
-
-                <div class="recent-summary">
-
-                    <span>
-                        <b id="myRecentWins">0</b> W
-                    </span>
-
-                    <span>
-                        <b id="myRecentLosses">0</b> L
-                    </span>
-
-                    <span>
-                        <b id="myRecentWinRate">—</b>
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- RECENT STATS -->
-
-            <div class="recent-stats">
-
-                <div class="mini-stat">
-
-                    <span>K</span>
-
-                    <strong id="myKills">
-                        —
-                    </strong>
-
-                </div>
-
-                <div class="mini-stat">
-
-                    <span>D</span>
-
-                    <strong id="myDeaths">
-                        —
-                    </strong>
-
-                </div>
-
-                <div class="mini-stat">
-
-                    <span>K/D</span>
-
-                    <strong id="myRecentKd">
-                        —
-                    </strong>
-
-                </div>
-
-                <div class="mini-stat">
-
-                    <span>HS</span>
-
-                    <strong id="myHeadshots">
-                        —
-                    </strong>
+                    </div>
 
                 </div>
 
@@ -265,28 +308,56 @@
         </section>
 
 
-        <!-- =========================
+        <!-- =================================================
              TARGET PLAYER
-        ========================== -->
+        ================================================== -->
 
         <section
             class="player-row target-player"
             id="targetPlayerRow"
         >
 
-            <!-- PLAYER IDENTITY -->
+            <div class="player-main">
 
-            <div class="player-identity">
 
-                <div class="avatar-wrap">
-                    <img
-                        id="targetAvatar"
-                        src=""
-                        alt="Avatar"
-                    >
+                <!-- AVATAR + LEVEL -->
+
+                <div class="avatar-section">
+
+                    <div class="level-ring">
+
+                        <div class="level-number">
+
+                            <span id="targetLevel">
+                                9
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="avatar-wrap">
+
+                        <img
+                            id="targetAvatar"
+                            src=""
+                            alt="Avatar"
+                        >
+
+                    </div>
+
+                    <div class="flag-wrap">
+
+                        <span id="targetCountry"></span>
+
+                    </div>
+
                 </div>
 
-                <div class="player-name-block">
+
+                <!-- PLAYER INFO -->
+
+                <div class="player-info">
 
                     <div class="player-role">
                         TARGET
@@ -299,175 +370,182 @@
                         -TOBOL-
                     </div>
 
-                    <div class="country-row">
+                    <div class="elo-line">
+
+                        <strong id="targetElo">
+                            —
+                        </strong>
+
+                        <span>
+                            ELO
+                        </span>
 
                         <span
-                            id="targetCountry"
-                            class="country"
-                        ></span>
+                            id="targetElo24h"
+                            class="elo-change neutral"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+                    <div class="level-text">
+                        Level
+                        <span id="targetLevelText">
+                            9
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- LIFETIME STATS -->
+
+                <div class="stat-block">
+
+                    <span class="stat-label">
+                        MECZE
+                    </span>
+
+                    <strong id="targetMatches">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-block">
+
+                    <span class="stat-label">
+                        WIN RATE
+                    </span>
+
+                    <strong id="targetWins">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-block">
+
+                    <span class="stat-label">
+                        K/D
+                    </span>
+
+                    <strong id="targetKd">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <!-- LAST 5 -->
+
+                <div class="recent-block">
+
+                    <span class="stat-label">
+                        OSTATNIE 5
+                    </span>
+
+                    <div
+                        id="targetForm"
+                        class="form"
+                    >
+                        <span class="form-empty">
+                            —
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- RECENT SUMMARY -->
+
+                <div class="recent-result-panel">
+
+                    <div class="result-box wins">
+
+                        <strong id="targetRecentWins">
+                            0
+                        </strong>
+
+                        <span>
+                            WINS
+                        </span>
+
+                    </div>
+
+                    <div class="result-box losses">
+
+                        <strong id="targetRecentLosses">
+                            0
+                        </strong>
+
+                        <span>
+                            LOSSES
+                        </span>
+
+                    </div>
+
+                    <div class="recent-winrate">
+
+                        <span>
+                            WIN RATE
+                        </span>
+
+                        <strong id="targetRecentWinRate">
+                            —
+                        </strong>
 
                     </div>
 
                 </div>
 
-                <div class="level-box">
 
-                    <span>LVL</span>
+                <!-- RECENT STATS -->
 
-                    <strong id="targetLevel">
-                        -
-                    </strong>
+                <div class="compact-stats">
 
-                </div>
+                    <div class="compact-stat">
 
-            </div>
+                        <span>K</span>
 
+                        <strong id="targetKills">
+                            —
+                        </strong>
 
-            <!-- ELO -->
+                    </div>
 
-            <div class="player-elo">
+                    <div class="compact-stat">
 
-                <div class="metric-label">
-                    ELO
-                </div>
+                        <span>D</span>
 
-                <div
-                    class="elo-value"
-                    id="targetElo"
-                >
-                    -
-                </div>
+                        <strong id="targetDeaths">
+                            —
+                        </strong>
 
-                <div class="elo-24h">
+                    </div>
 
-                    24H
+                    <div class="compact-stat">
 
-                    <strong
-                        id="targetElo24h"
-                        class="neutral"
-                    >
-                        —
-                    </strong>
+                        <span>K/D</span>
 
-                </div>
+                        <strong id="targetRecentKd">
+                            —
+                        </strong>
 
-            </div>
+                    </div>
 
+                    <div class="compact-stat">
 
-            <!-- LIFETIME STATS -->
+                        <span>HS</span>
 
-            <div class="player-metrics">
+                        <strong id="targetHeadshots">
+                            —
+                        </strong>
 
-                <div class="metric">
-
-                    <span>MATCHES</span>
-
-                    <strong id="targetMatches">
-                        -
-                    </strong>
-
-                </div>
-
-                <div class="metric">
-
-                    <span>WIN RATE</span>
-
-                    <strong id="targetWins">
-                        -
-                    </strong>
-
-                </div>
-
-                <div class="metric">
-
-                    <span>K/D</span>
-
-                    <strong id="targetKd">
-                        -
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- RECENT 5 -->
-
-            <div class="recent-block">
-
-                <div class="recent-title">
-                    LAST 5
-                </div>
-
-                <div
-                    id="targetForm"
-                    class="form"
-                >
-                    <span class="form-empty">
-                        —
-                    </span>
-                </div>
-
-                <div class="recent-summary">
-
-                    <span>
-                        <b id="targetRecentWins">0</b> W
-                    </span>
-
-                    <span>
-                        <b id="targetRecentLosses">0</b> L
-                    </span>
-
-                    <span>
-                        <b id="targetRecentWinRate">—</b>
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- RECENT STATS -->
-
-            <div class="recent-stats">
-
-                <div class="mini-stat">
-
-                    <span>K</span>
-
-                    <strong id="targetKills">
-                        —
-                    </strong>
-
-                </div>
-
-                <div class="mini-stat">
-
-                    <span>D</span>
-
-                    <strong id="targetDeaths">
-                        —
-                    </strong>
-
-                </div>
-
-                <div class="mini-stat">
-
-                    <span>K/D</span>
-
-                    <strong id="targetRecentKd">
-                        —
-                    </strong>
-
-                </div>
-
-                <div class="mini-stat">
-
-                    <span>HS</span>
-
-                    <strong id="targetHeadshots">
-                        —
-                    </strong>
+                    </div>
 
                 </div>
 
@@ -478,102 +556,107 @@
     </main>
 
 
-    <!-- =========================
+    <!-- =====================================================
          COMPARISON
-    ========================== -->
+    ====================================================== -->
 
     <section class="comparison-panel">
 
-        <div class="comparison-title">
-            COMPARISON
+        <div class="comparison-card">
+
+            <span>
+                RÓŻNICA ELO
+            </span>
+
+            <strong
+                id="comparisonElo"
+            >
+                —
+            </strong>
+
+            <small id="eloMissingText">
+                —
+                brakuje do przeciwnika
+            </small>
+
+        </div>
+
+
+        <div class="comparison-card">
+
+            <span>
+                TWOJE MECZE
+            </span>
+
+            <strong id="comparisonMyMatches">
+                —
+            </strong>
+
         </div>
 
 
-        <div class="comparison-grid">
+        <div class="comparison-card">
 
-            <div class="comparison-card">
+            <span>
+                PRZECIWNIKA MECZE
+            </span>
 
-                <span>ELO DIFFERENCE</span>
-
-                <strong id="comparisonElo">
-                    —
-                </strong>
-
-            </div>
-
-
-            <div class="comparison-card">
-
-                <span>MY ELO GAP</span>
-
-                <strong id="eloMissing">
-                    —
-                </strong>
-
-            </div>
-
-
-            <div class="comparison-card">
-
-                <span>MATCHES</span>
-
-                <strong>
-                    <span id="comparisonMyMatches">
-                        —
-                    </span>
-                    <span class="vs-small">
-                        VS
-                    </span>
-                    <span id="comparisonTargetMatches">
-                        —
-                    </span>
-                </strong>
-
-            </div>
-
-
-            <div class="comparison-card">
-
-                <span>WIN RATE DIFF.</span>
-
-                <strong id="comparisonWinRate">
-                    —
-                </strong>
-
-            </div>
-
-
-            <div class="comparison-card">
-
-                <span>K/D DIFF.</span>
-
-                <strong id="comparisonKd">
-                    —
-                </strong>
-
-            </div>
+            <strong id="comparisonTargetMatches">
+                —
+            </strong>
 
         </div>
+
+
+        <div class="comparison-card">
+
+            <span>
+                RÓŻNICA WIN RATE
+            </span>
+
+            <strong
+                id="comparisonWinRate"
+            >
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="comparison-card">
+
+            <span>
+                RÓŻNICA K/D
+            </span>
+
+            <strong
+                id="comparisonKd"
+            >
+                —
+            </strong>
+
+        </div>
+
 
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          SEARCH
-    ========================== -->
+    ====================================================== -->
 
     <section class="search-panel">
 
-        <div class="search-label">
-            SEARCH FACEIT PLAYER
-        </div>
+        <div class="search-box">
 
-        <div class="target-search">
+            <div class="search-icon">
+                ⌕
+            </div>
 
             <input
                 id="targetInput"
                 type="text"
-                placeholder="Wpisz nick gracza FACEIT..."
+                placeholder="Wpisz nick przeciwnika..."
                 autocomplete="off"
             >
 
@@ -581,7 +664,7 @@
                 id="searchButton"
                 type="button"
             >
-                SZUKAJ
+                →
             </button>
 
         </div>
@@ -594,9 +677,9 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          FOOTER
-    ========================== -->
+    ====================================================== -->
 
     <footer class="footer">
 
@@ -604,9 +687,7 @@
             FACEIT TARGET WIDGET
         </span>
 
-        <span
-            id="footerPlayers"
-        >
+        <span id="footerPlayers">
             -krajewsky- vs -TOBOL-
         </span>
 
@@ -618,4 +699,5 @@
 <script src="script.js?v=1001"></script>
 
 </body>
+
 </html>
