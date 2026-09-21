@@ -4,435 +4,1171 @@ const API_BASE =
 const ME = "-krajewsky-";
 const DEFAULT_TARGET = "-TOBOL-";
 
+/* =========================
+   HELPERS
+========================= */
 
-// =========================
-// API
-// =========================
+function $(id) {
+    return document.getElementById(id);
+}
+
+function safeText(value, fallback = "—") {
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return fallback;
+    }
+
+    return String(value);
+}
+
+function formatNumber(value, decimals = 0) {
+    const number = Number(value);
+
+    if (!Number.isFinite(number)) {
+        return "—";
+    }
+
+    return number.toFixed(decimals);
+}
+
+function formatSigned(value, decimals = 0) {
+    const number = Number(value);
+
+    if (!Number.isFinite(number)) {
+        return "—";
+    }
+
+    if (number > 0) {
+        return `+${number.toFixed(decimals)}`;
+    }
+
+    return number.toFixed(decimals);
+}
+
+/* =========================
+   COUNTRY / FLAG
+========================= */
+
+function formatCountry(country) {
+    if (!country) {
+        return "";
+    }
+
+    const code = String(country).toLowerCase();
+
+    return `
+        <img
+            src="https://flagcdn.com/w40/${code}.png"
+            alt="${code.toUpperCase()}"
+            class="country-flag"
+        >
+    `;
+}
+
+/* =========================
+   API
+========================= */
 
 async function getPlayer(nickname) {
+    const url =
+        `${API_BASE}/?nickname=${encodeURIComponent(
+            nickname
+        )}`;
 
-    const response = await fetch(
-        `${API_BASE}/?nickname=${encodeURIComponent(nickname)}`
-    );
-
-    const data = await response.json();
+    const response = await fetch(url);
 
     if (!response.ok) {
         throw new Error(
-            data.message ||
-            data.error ||
-            `FACEIT API error: ${response.status}`
+            `API error: ${response.status}`
+        );
+    }
+
+    const data = await response.json();
+
+    if (data.error) {
+        throw new Error(
+            data.message || data.error
         );
     }
 
     return data;
 }
 
+/* =========================
+   AVATAR
+========================= */
 
-// =========================
-// HELPERS
-// =========================
+function setAvatar(element, avatarUrl, nickname) {
+    if (!element) {
+        return;
+    }
 
-function getElement(id) {
-    return document.getElementById(id);    
+    if (!avatarUrl) {
+        element.removeAttribute("src");
+        return;
+    }
+
+    const proxyUrl =
+        `${API_BASE}/avatar?url=${encodeURIComponent(
+            avatarUrl
+        )}`;
+
+    element.src = proxyUrl;
+    element.alt = nickname || "Avatar";
+
+    element.onerror = () => {
+        element.src = avatarUrl;
+    };
 }
 
+/* =========================
+   ELO 24H
+========================= */
 
-function countryFlag(country) {
+function formatElo24h(value) {
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return "—";
+    }
 
-    if (!country) {
+    const number = Number(value);
+
+    if (!Number.isFinite(number)) {
+        return "—";
+    }
+
+    if (number > 0) {
+        return `+${number}`;
+    }
+
+    return String(number);
+}
+
+function elo24hClass(value) {
+    const number = Number(value);
+
+    if (!Number.isFinite(number)) {
         return "";
     }
 
-    const code = country.toUpperCase();
-
-    if (code.length !== 2) {
-        return country;
+    if (number > 0) {
+        return "positive";
     }
 
-    return String.fromCodePoint(
-        ...[...code].map(
-            char => 127397 + char.charCodeAt(0)
-        )
-    );
-}
-
-
-function formatCountry(country) {
-    if (!country) return "";
-
-    const code = country.toLowerCase();
-    return `
-        <img
-            src="https://flagcdn.com/w40/${code}.png"
-            alt="${country.toUpperCase()}"
-            class="country-flag"
-        >
-    `;
-}
-
-// =========================
-// AVATAR
-// =========================
-
-function setAvatar(elementId, avatar, nickname) {
-    const imageElement = getElement(elementId);
-    if (!imageElement) return;
-
-    let imageUrl = avatar;
-
-    if (nickname === "-krajewsky-") {
-        imageUrl =
-            "https://distribution.faceit-cdn.net/images/ee7c7d24-f0b0-46c0-be3d-ab7bf505a751.jpg";
+    if (number < 0) {
+        return "negative";
     }
 
-    if (!imageUrl) {
-        imageElement.removeAttribute("src");
-        imageElement.alt =
-            nickname.charAt(0).toUpperCase();
+    return "neutral";
+}
+
+/* =========================
+   RECENT FORM
+========================= */
+
+function renderRecentForm(
+    form,
+    container
+) {
+    if (!container) {
         return;
     }
 
-    imageElement.alt = `${nickname} avatar`;
+    if (!Array.isArray(form) || !form.length) {
+        container.innerHTML =
+            `<span class="form-empty">—</span>`;
+        return;
+    }
 
-    imageElement.onerror = () => {
-        imageElement.removeAttribute("src");
-        imageElement.alt =
-            nickname.charAt(0).toUpperCase();
+    container.innerHTML = form
+        .slice(0, 5)
+        .map(result => {
+            const value =
+                String(result).toUpperCase();
+
+            const isWin = value === "W";
+
+            return `
+                <span
+                    class="form-result ${
+                        isWin
+                            ? "win"
+                            : "loss"
+                    }"
+                >
+                    ${isWin ? "W" : "L"}
+                </span>
+            `;
+        })
+        .join("");
+}
+
+/* =========================
+   RECENT STATS
+========================= */
+
+function getRecent(player) {
+    return player?.recent || {
+        matches: 0,
+        wins: 0,
+        losses: 0,
+        kills: null,
+        deaths: null,
+        kd: null,
+        headshots: null,
+        form: [],
+        lastMatch: null
     };
-
-    imageElement.src =
-        `${API_BASE}/avatar?url=${encodeURIComponent(imageUrl)}`;
-}
-// =========================
-// MY PROFILE
-// =========================
-
-function renderMyProfile(player) {
-
-    getElement("myNickname").textContent =
-        player.nickname || ME;
-
-    getElement("myCountry").innerHTML =
-        formatCountry(player.country);
-
-    getElement("myLevel").textContent =
-        player.level ?? "-";
-
-    getElement("myElo").textContent =
-        player.elo != null
-            ? Number(player.elo).toLocaleString("en-US")
-            : "-";
-
-    setAvatar(
-        "myAvatar",
-        player.avatar,
-        player.nickname || ME
-    );
-
-
-    // Statistics
-
-    const stats = player.stats || {};
-
-    getElement("wins").textContent =
-        stats.wins != null
-            ? `${stats.wins}%`
-            : "-";
-
-    getElement("matches").textContent =
-        stats.matches != null
-            ? Number(stats.matches).toLocaleString("en-US")
-            : "-";
-
-    getElement("kd").textContent =
-        stats.kd != null
-            ? stats.kd
-            : "-";
-
-
-    renderRecentForm(
-        stats.recentResults || []
-    );
 }
 
-
-// =========================
-// TARGET
-// =========================
-
-function renderTarget(player) {
-
-    getElement("targetNickname").textContent =
-        player.nickname || "-";
-
-    getElement("targetCountry").innerHTML =
-        formatCountry(player.country);
-
-    getElement("targetLevel").textContent =
-        player.level ?? "-";
-
-    getElement("targetElo").textContent =
-        player.elo != null
-            ? Number(player.elo).toLocaleString("en-US")
-            : "-";
-
-    setAvatar(
-        "targetAvatar",
-        player.avatar,
-        player.nickname || "T"
-    );
-
-    updateEloProgress();
-    updateFooter();
-}
-
-
-// =========================
-// RECENT FORM
-// =========================
-
-function renderRecentForm(results) {
-
-    const form = getElement("form");
-
-    if (!form) {
-        return;
-    }
-
-    if (!results.length) {
-        form.textContent = "-";
-        return;
-    }
-
-    form.innerHTML = "";
-
-    results.slice(0, 5).forEach(result => {
-
-        const item = document.createElement("span");
-
-        /*
-         * FACEIT zwraca wyniki jako wartości liczbowe.
-         * 0 traktujemy jako L.
-         * Pozostałe wartości z aktualnych danych jako W.
-         */
-
-        if (Number(result) === 0) {
-
-            item.textContent = "L";
-            item.className = "form-loss";
-
-        } else {
-
-            item.textContent = "W";
-            item.className = "form-win";
-
-        }
-
-        form.appendChild(item);
-
-    });
-}
-
-
-// =========================
-// ELO PROGRESS
-// =========================
-
-function updateEloProgress() {
-
-    const myElo =
-        Number(
-            getElement("myElo").textContent.replace(/,/g, "")
-        );
-
-    const targetElo =
-        Number(
-            getElement("targetElo").textContent.replace(/,/g, "")
-        );
+function recentWinRate(recent) {
+    const wins = Number(recent?.wins);
+    const matches = Number(recent?.matches);
 
     if (
-        !Number.isFinite(myElo) ||
-        !Number.isFinite(targetElo)
+        !Number.isFinite(wins) ||
+        !Number.isFinite(matches) ||
+        matches <= 0
+    ) {
+        return null;
+    }
+
+    return (wins / matches) * 100;
+}
+
+function recentSummary(recent) {
+    const wins = Number(recent?.wins);
+    const losses = Number(recent?.losses);
+
+    return {
+        wins: Number.isFinite(wins)
+            ? wins
+            : 0,
+
+        losses: Number.isFinite(losses)
+            ? losses
+            : 0
+    };
+}
+
+/* =========================
+   PLAYER DATA
+========================= */
+
+function getLifetimeWinRate(player) {
+    const value =
+        player?.stats?.wins;
+
+    const number = Number(value);
+
+    return Number.isFinite(number)
+        ? number
+        : null;
+}
+
+function getLifetimeMatches(player) {
+    const value =
+        player?.stats?.matches;
+
+    const number = Number(value);
+
+    return Number.isFinite(number)
+        ? number
+        : null;
+}
+
+function getLifetimeKd(player) {
+    const value =
+        player?.stats?.kd;
+
+    const number = Number(value);
+
+    return Number.isFinite(number)
+        ? number
+        : null;
+}
+
+/* =========================
+   OLD / EXISTING WIDGET
+   SUPPORT
+========================= */
+
+function renderMyProfile(player) {
+    if (!player) {
+        return;
+    }
+
+    if ($("myNickname")) {
+        $("myNickname").textContent =
+            safeText(player.nickname);
+    }
+
+    if ($("myCountry")) {
+        $("myCountry").innerHTML =
+            formatCountry(player.country);
+    }
+
+    if ($("myLevel")) {
+        $("myLevel").textContent =
+            safeText(player.level);
+    }
+
+    if ($("myElo")) {
+        $("myElo").textContent =
+            safeText(player.elo);
+    }
+
+    if ($("myAvatar")) {
+        setAvatar(
+            $("myAvatar"),
+            player.avatar,
+            player.nickname
+        );
+    }
+
+    if ($("wins")) {
+        $("wins").textContent =
+            getLifetimeWinRate(player) !== null
+                ? `${formatNumber(
+                    getLifetimeWinRate(player),
+                    0
+                )}%`
+                : "—";
+    }
+
+    if ($("matches")) {
+        $("matches").textContent =
+            safeText(
+                getLifetimeMatches(player)
+            );
+    }
+
+    if ($("kd")) {
+        $("kd").textContent =
+            getLifetimeKd(player) !== null
+                ? formatNumber(
+                    getLifetimeKd(player),
+                    2
+                )
+                : "—";
+    }
+
+    if ($("form")) {
+        renderRecentForm(
+            player?.stats?.recentResults,
+            $("form")
+        );
+    }
+}
+
+function renderTarget(player) {
+    if (!player) {
+        return;
+    }
+
+    if ($("targetNickname")) {
+        $("targetNickname").textContent =
+            safeText(player.nickname);
+    }
+
+    if ($("targetCountry")) {
+        $("targetCountry").innerHTML =
+            formatCountry(player.country);
+    }
+
+    if ($("targetLevel")) {
+        $("targetLevel").textContent =
+            safeText(player.level);
+    }
+
+    if ($("targetElo")) {
+        $("targetElo").textContent =
+            safeText(player.elo);
+    }
+
+    if ($("targetAvatar")) {
+        setAvatar(
+            $("targetAvatar"),
+            player.avatar,
+            player.nickname
+        );
+    }
+}
+
+/* =========================
+   NEW PLAYER ROW
+========================= */
+
+function renderPlayerRow(
+    prefix,
+    player
+) {
+    if (!player) {
+        return;
+    }
+
+    const recent =
+        getRecent(player);
+
+    const summary =
+        recentSummary(recent);
+
+    const lifetimeWinRate =
+        getLifetimeWinRate(player);
+
+    const lifetimeMatches =
+        getLifetimeMatches(player);
+
+    const lifetimeKd =
+        getLifetimeKd(player);
+
+    const recentKd =
+        recent.kd !== null
+            ? Number(recent.kd)
+            : null;
+
+    const recentHs =
+        recent.headshots !== null
+            ? Number(recent.headshots)
+            : null;
+
+    const elo =
+        Number(player.elo);
+
+    const elo24h =
+        player.elo24h;
+
+    /* Avatar */
+
+    const avatar =
+        $(`${prefix}Avatar`);
+
+    if (avatar) {
+        setAvatar(
+            avatar,
+            player.avatar,
+            player.nickname
+        );
+    }
+
+    /* Nickname */
+
+    const nickname =
+        $(`${prefix}Nickname`);
+
+    if (nickname) {
+        nickname.textContent =
+            safeText(player.nickname);
+    }
+
+    /* Country */
+
+    const country =
+        $(`${prefix}Country`);
+
+    if (country) {
+        country.innerHTML =
+            formatCountry(player.country);
+    }
+
+    /* Level */
+
+    const level =
+        $(`${prefix}Level`);
+
+    if (level) {
+        level.textContent =
+            safeText(player.level);
+    }
+
+    /* ELO */
+
+    const eloElement =
+        $(`${prefix}Elo`);
+
+    if (eloElement) {
+        eloElement.textContent =
+            Number.isFinite(elo)
+                ? String(elo)
+                : "—";
+    }
+
+    /* 24H ELO */
+
+    const elo24hElement =
+        $(`${prefix}Elo24h`);
+
+    if (elo24hElement) {
+        elo24hElement.textContent =
+            formatElo24h(elo24h);
+
+        elo24hElement.classList.remove(
+            "positive",
+            "negative",
+            "neutral"
+        );
+
+        const className =
+            elo24hClass(elo24h);
+
+        if (className) {
+            elo24hElement.classList.add(
+                className
+            );
+        }
+    }
+
+    /* Matches */
+
+    const matchesElement =
+        $(`${prefix}Matches`);
+
+    if (matchesElement) {
+        matchesElement.textContent =
+            lifetimeMatches !== null
+                ? String(lifetimeMatches)
+                : "—";
+    }
+
+    /* Lifetime Win Rate */
+
+    const winsElement =
+        $(`${prefix}Wins`);
+
+    if (winsElement) {
+        winsElement.textContent =
+            lifetimeWinRate !== null
+                ? `${formatNumber(
+                    lifetimeWinRate,
+                    0
+                )}%`
+                : "—";
+    }
+
+    /* Lifetime K/D */
+
+    const kdElement =
+        $(`${prefix}Kd`);
+
+    if (kdElement) {
+        kdElement.textContent =
+            lifetimeKd !== null
+                ? formatNumber(
+                    lifetimeKd,
+                    2
+                )
+                : "—";
+    }
+
+    /* Recent K/D */
+
+    const recentKdElement =
+        $(`${prefix}RecentKd`);
+
+    if (recentKdElement) {
+        recentKdElement.textContent =
+            recentKd !== null
+                ? formatNumber(
+                    recentKd,
+                    2
+                )
+                : "—";
+    }
+
+    /* Recent kills */
+
+    const killsElement =
+        $(`${prefix}Kills`);
+
+    if (killsElement) {
+        killsElement.textContent =
+            recent.kills !== null
+                ? String(recent.kills)
+                : "—";
+    }
+
+    /* Recent deaths */
+
+    const deathsElement =
+        $(`${prefix}Deaths`);
+
+    if (deathsElement) {
+        deathsElement.textContent =
+            recent.deaths !== null
+                ? String(recent.deaths)
+                : "—";
+    }
+
+    /* Recent headshots */
+
+    const headshotsElement =
+        $(`${prefix}Headshots`);
+
+    if (headshotsElement) {
+        headshotsElement.textContent =
+            recentHs !== null
+                ? `${formatNumber(
+                    recentHs,
+                    0
+                )}%`
+                : "—";
+    }
+
+    /* Recent matches */
+
+    const recentMatchesElement =
+        $(`${prefix}RecentMatches`);
+
+    if (recentMatchesElement) {
+        recentMatchesElement.textContent =
+            String(recent.matches || 0);
+    }
+
+    /* Recent wins */
+
+    const recentWinsElement =
+        $(`${prefix}RecentWins`);
+
+    if (recentWinsElement) {
+        recentWinsElement.textContent =
+            String(summary.wins);
+    }
+
+    /* Recent losses */
+
+    const recentLossesElement =
+        $(`${prefix}RecentLosses`);
+
+    if (recentLossesElement) {
+        recentLossesElement.textContent =
+            String(summary.losses);
+    }
+
+    /* Recent win rate */
+
+    const recentWinRateElement =
+        $(`${prefix}RecentWinRate`);
+
+    if (recentWinRateElement) {
+        const rate =
+            recentWinRate(recent);
+
+        recentWinRateElement.textContent =
+            rate !== null
+                ? `${formatNumber(
+                    rate,
+                    0
+                )}%`
+                : "—";
+    }
+
+    /* Form */
+
+    const formElement =
+        $(`${prefix}Form`);
+
+    if (formElement) {
+        renderRecentForm(
+            recent.form,
+            formElement
+        );
+    }
+
+    /* Last match */
+
+    const lastMatch =
+        recent.lastMatch;
+
+    if (lastMatch) {
+        const lastKills =
+            $(`${prefix}LastKills`);
+
+        if (lastKills) {
+            lastKills.textContent =
+                lastMatch.kills !== null
+                    ? String(
+                        lastMatch.kills
+                    )
+                    : "—";
+        }
+
+        const lastDeaths =
+            $(`${prefix}LastDeaths`);
+
+        if (lastDeaths) {
+            lastDeaths.textContent =
+                lastMatch.deaths !== null
+                    ? String(
+                        lastMatch.deaths
+                    )
+                    : "—";
+        }
+
+        const lastKd =
+            $(`${prefix}LastKd`);
+
+        if (lastKd) {
+            lastKd.textContent =
+                lastMatch.kd !== null
+                    ? formatNumber(
+                        lastMatch.kd,
+                        2
+                    )
+                    : "—";
+        }
+
+        const lastHs =
+            $(`${prefix}LastHeadshots`);
+
+        if (lastHs) {
+            lastHs.textContent =
+                lastMatch.headshots !== null
+                    ? `${formatNumber(
+                        lastMatch.headshots,
+                        0
+                    )}%`
+                    : "—";
+        }
+    }
+}
+
+/* =========================
+   COMPARISON
+========================= */
+
+function renderComparison(
+    myPlayer,
+    targetPlayer
+) {
+    if (
+        !myPlayer ||
+        !targetPlayer
     ) {
         return;
     }
 
+    const myElo =
+        Number(myPlayer.elo);
 
-    const difference =
-        myElo - targetElo;
+    const targetElo =
+        Number(targetPlayer.elo);
 
+    const eloDifference =
+        targetElo - myElo;
 
-    getElement("difference").textContent =
-        `${difference >= 0 ? "+" : ""}${difference} ELO`;
+    const myWinRate =
+        getLifetimeWinRate(myPlayer);
 
+    const targetWinRate =
+        getLifetimeWinRate(targetPlayer);
 
-    const highest =
-        Math.max(myElo, targetElo);
+    const winRateDifference =
+        myWinRate !== null &&
+        targetWinRate !== null
+            ? myWinRate -
+              targetWinRate
+            : null;
 
-    const lowest =
-        Math.min(myElo, targetElo);
+    const myKd =
+        getLifetimeKd(myPlayer);
 
+    const targetKd =
+        getLifetimeKd(targetPlayer);
 
-    let progress;
+    const kdDifference =
+        myKd !== null &&
+        targetKd !== null
+            ? myKd - targetKd
+            : null;
 
-    if (highest === lowest) {
+    /*
+       ELO MISSING
 
-        progress = 50;
+       Jeżeli przeciwnik ma więcej ELO,
+       pokazujemy ile brakuje.
 
-    } else {
+       Jeżeli masz więcej ELO,
+       pokazujemy + ile masz przewagi.
+    */
 
-        progress =
-            ((myElo - lowest) /
-            (highest - lowest)) * 100;
+    const missingElement =
+        $("eloMissing");
 
+    if (missingElement) {
+        if (
+            Number.isFinite(
+                eloDifference
+            )
+        ) {
+            missingElement.textContent =
+                eloDifference > 0
+                    ? `-${eloDifference}`
+                    : `+${Math.abs(
+                        eloDifference
+                    )}`;
+        } else {
+            missingElement.textContent =
+                "—";
+        }
     }
 
+    const eloDifferenceElement =
+        $("comparisonElo");
 
-    progress =
-        Math.max(
-            10,
-            Math.min(90, progress)
-        );
+    if (eloDifferenceElement) {
+        eloDifferenceElement.textContent =
+            Number.isFinite(
+                eloDifference
+            )
+                ? formatSigned(
+                    eloDifference
+                )
+                : "—";
+    }
 
+    const winRateElement =
+        $("comparisonWinRate");
 
-    getElement("progressBar").style.width =
-        `${progress}%`;
+    if (winRateElement) {
+        winRateElement.textContent =
+            winRateDifference !== null
+                ? formatSigned(
+                    winRateDifference,
+                    0
+                ) + "%"
+                : "—";
+    }
+
+    const kdElement =
+        $("comparisonKd");
+
+    if (kdElement) {
+        kdElement.textContent =
+            kdDifference !== null
+                ? formatSigned(
+                    kdDifference,
+                    2
+                )
+                : "—";
+    }
+
+    const myMatchesElement =
+        $("comparisonMyMatches");
+
+    if (myMatchesElement) {
+        myMatchesElement.textContent =
+            getLifetimeMatches(
+                myPlayer
+            ) !== null
+                ? String(
+                    getLifetimeMatches(
+                        myPlayer
+                    )
+                )
+                : "—";
+    }
+
+    const targetMatchesElement =
+        $("comparisonTargetMatches");
+
+    if (targetMatchesElement) {
+        targetMatchesElement.textContent =
+            getLifetimeMatches(
+                targetPlayer
+            ) !== null
+                ? String(
+                    getLifetimeMatches(
+                        targetPlayer
+                    )
+                )
+                : "—";
+    }
 }
 
+/* =========================
+   OLD ELO BAR
+========================= */
 
-// =========================
-// FOOTER
-// =========================
+function updateEloProgress(
+    myElo,
+    targetElo
+) {
+    const my =
+        Number(myElo);
 
-function updateFooter() {
+    const target =
+        Number(targetElo);
 
-    const myNickname =
-        getElement("myNickname").textContent;
+    if (
+        !Number.isFinite(my) ||
+        !Number.isFinite(target)
+    ) {
+        return;
+    }
 
-    const targetNickname =
-        getElement("targetNickname").textContent;
+    const difference =
+        my - target;
 
-    getElement("footerPlayers").textContent =
-        `${myNickname} vs ${targetNickname}`;
+    if ($("difference")) {
+        $("difference").textContent =
+            difference >= 0
+                ? `+${difference}`
+                : String(difference);
+    }
+
+    const progressBar =
+        $("progressBar");
+
+    if (progressBar) {
+        const total =
+            Math.abs(my) +
+            Math.abs(target);
+
+        let percent = 50;
+
+        if (total > 0) {
+            percent =
+                (my / total) * 100;
+        }
+
+        percent =
+            Math.max(
+                5,
+                Math.min(
+                    95,
+                    percent
+                )
+            );
+
+        progressBar.style.width =
+            `${percent}%`;
+    }
 }
 
+/* =========================
+   FOOTER
+========================= */
 
-// =========================
-// LOAD PLAYERS
-// =========================
+function updateFooter(
+    myPlayer,
+    targetPlayer
+) {
+    const footer =
+        $("footerPlayers");
 
-async function loadPlayers(targetNickname) {
+    if (!footer) {
+        return;
+    }
 
+    footer.textContent =
+        `${safeText(
+            myPlayer?.nickname
+        )} vs ${safeText(
+            targetPlayer?.nickname
+        )}`;
+}
+
+/* =========================
+   RENDER EVERYTHING
+========================= */
+
+function renderWidget(
+    myPlayer,
+    targetPlayer
+) {
+    /* Old layout */
+
+    renderMyProfile(
+        myPlayer
+    );
+
+    renderTarget(
+        targetPlayer
+    );
+
+    updateEloProgress(
+        myPlayer?.elo,
+        targetPlayer?.elo
+    );
+
+    updateFooter(
+        myPlayer,
+        targetPlayer
+    );
+
+    /* New layout */
+
+    renderPlayerRow(
+        "my",
+        myPlayer
+    );
+
+    renderPlayerRow(
+        "target",
+        targetPlayer
+    );
+
+    renderComparison(
+        myPlayer,
+        targetPlayer
+    );
+
+    /* Store current players */
+
+    window.currentMyPlayer =
+        myPlayer;
+
+    window.currentTargetPlayer =
+        targetPlayer;
+}
+
+/* =========================
+   LOAD PLAYERS
+========================= */
+
+async function loadPlayers(
+    targetNickname = DEFAULT_TARGET
+) {
     try {
-
         const myPlayer =
             await getPlayer(ME);
 
         const targetPlayer =
-            await getPlayer(targetNickname);
+            await getPlayer(
+                targetNickname
+            );
 
-        renderMyProfile(myPlayer);
-        renderTarget(targetPlayer);
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert(
-            `Nie udało się pobrać danych gracza.\n\n${error.message}`
+        renderWidget(
+            myPlayer,
+            targetPlayer
         );
 
+        return {
+            myPlayer,
+            targetPlayer
+        };
+    } catch (error) {
+        console.error(
+            "FACEIT widget error:",
+            error
+        );
+
+        if ($("status")) {
+            $("status").textContent =
+                "API ERROR";
+        }
+
+        if ($("apiStatus")) {
+            $("apiStatus").textContent =
+                "API OFFLINE";
+        }
+
+        if ($("error")) {
+            $("error").textContent =
+                error.message;
+        }
+
+        throw error;
     }
 }
 
-
-// =========================
-// SEARCH
-// =========================
+/* =========================
+   SEARCH
+========================= */
 
 async function searchTarget() {
-
     const input =
-        getElement("targetInput");
+        $("targetInput");
 
-    const button =
-        getElement("searchButton");
+    if (!input) {
+        return;
+    }
 
     const nickname =
         input.value.trim();
 
     if (!nickname) {
-
-        alert("Wpisz nick gracza FACEIT.");
-
-        input.focus();
-
         return;
     }
 
+    const button =
+        $("searchButton");
 
-    button.disabled = true;
-    button.textContent = "LOADING...";
-
+    if (button) {
+        button.disabled = true;
+        button.textContent =
+            "SZUKANIE...";
+    }
 
     try {
-
-        const myPlayer =
-            await getPlayer(ME);
-
-        const targetPlayer =
-            await getPlayer(nickname);
-
-        renderMyProfile(myPlayer);
-        renderTarget(targetPlayer);
-
-        input.value =
-            targetPlayer.nickname || nickname;
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert(
-            `Nie znaleziono gracza lub wystąpił błąd.\n\n${error.message}`
+        await loadPlayers(
+            nickname
         );
-
+    } catch (error) {
+        console.error(error);
     } finally {
-
-        button.disabled = false;
-        button.textContent = "SEARCH";
-
+        if (button) {
+            button.disabled = false;
+            button.textContent =
+                "SZUKAJ";
+        }
     }
 }
 
+/* =========================
+   SEARCH EVENTS
+========================= */
 
-// =========================
-// EVENTS
-// =========================
+function setupSearch() {
+    const button =
+        $("searchButton");
 
-getElement("searchButton")
-    .addEventListener(
-        "click",
-        searchTarget
-    );
+    const input =
+        $("targetInput");
 
+    if (button) {
+        button.addEventListener(
+            "click",
+            searchTarget
+        );
+    }
 
-getElement("targetInput")
-    .addEventListener(
-        "keydown",
-        event => {
-
-            if (event.key === "Enter") {
-                searchTarget();
+    if (input) {
+        input.addEventListener(
+            "keydown",
+            event => {
+                if (
+                    event.key ===
+                    "Enter"
+                ) {
+                    searchTarget();
+                }
             }
+        );
+    }
+}
 
+/* =========================
+   INIT
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+        setupSearch();
+
+        try {
+            await loadPlayers(
+                DEFAULT_TARGET
+            );
+        } catch (error) {
+            console.error(error);
         }
-    );
-
-
-// =========================
-// START
-// =========================
-
-loadPlayers(DEFAULT_TARGET);
+    }
+);
