@@ -76,17 +76,17 @@ function formatCountry(country) {
 
 function getFaceitRankImage(level) {
     const rankImages = {
-        1: "https://support.faceit.com/hc/article_attachments/11345480868764",
-        2: "https://support.faceit.com/hc/article_attachments/11345494083356",
-        3: "https://support.faceit.com/hc/article_attachments/11345519346332",
-        4: "https://support.faceit.com/hc/article_attachments/11345507782300",
-        5: "https://support.faceit.com/hc/article_attachments/11345494079004",
-        6: "https://support.faceit.com/hc/article_attachments/11345526591772",
-        7: "https://support.faceit.com/hc/article_attachments/11345507775388",
-        8: "https://support.faceit.com/hc/article_attachments/11345494072220",
-        9: "https://support.faceit.com/hc/article_attachments/11345519335964",
-        10: "https://support.faceit.com/hc/article_attachments/11345507770524"
-    };
+    1: "https://support.faceit.com/hc/article_attachments/10525200575516",
+    2: "https://support.faceit.com/hc/article_attachments/10525189649308",
+    3: "https://support.faceit.com/hc/article_attachments/10525200576796",
+    4: "https://support.faceit.com/hc/article_attachments/10525185037724",
+    5: "https://support.faceit.com/hc/article_attachments/10525215800860",
+    6: "https://support.faceit.com/hc/article_attachments/10525245409692",
+    7: "https://support.faceit.com/hc/article_attachments/10525185034012",
+    8: "https://support.faceit.com/hc/article_attachments/10525189648796",
+    9: "https://support.faceit.com/hc/article_attachments/10525200576028",
+    10: "https://support.faceit.com/hc/article_attachments/10525189646876"
+};
 
     return (
         rankImages[
