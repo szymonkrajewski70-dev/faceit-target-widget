@@ -97,7 +97,7 @@ function formatCountry(country) {
 // AVATAR
 // =========================
 
-async function setAvatar(elementId, avatar, nickname) {    
+async function setAvatar(elementId, avatar, nickname) {
     const container = getElement(elementId);
     if (!container) return;
 
@@ -110,14 +110,9 @@ async function setAvatar(elementId, avatar, nickname) {
             "https://distribution.faceit-cdn.net/images/ee7c7d24-f0b0-46c0-be3d-ab7bf505a751.jpg";
     }
 
-    const showFallback = () => {
-        container.innerHTML = "";
+    if (!imageUrl) {
         container.textContent =
             nickname.charAt(0).toUpperCase();
-    };
-
-    if (!imageUrl) {
-        showFallback();
         return;
     }
 
@@ -137,27 +132,27 @@ async function setAvatar(elementId, avatar, nickname) {
 
         const image = document.createElement("img");
 
+        image.src = objectUrl;
         image.alt = `${nickname} avatar`;
+
+        image.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            container.textContent =
+                nickname.charAt(0).toUpperCase();
+        };
 
         image.onload = () => {
             URL.revokeObjectURL(objectUrl);
         };
 
-        image.onerror = () => {
-            URL.revokeObjectURL(objectUrl);
-            showFallback();
-        };
-
-        image.src = objectUrl;
-
         container.appendChild(image);
 
     } catch (error) {
         console.error("Avatar error:", error);
-        showFallback();
+        container.textContent =
+            nickname.charAt(0).toUpperCase();
     }
 }
-
 
 // =========================
 // MY PROFILE
