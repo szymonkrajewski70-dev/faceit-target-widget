@@ -68,7 +68,7 @@ function formatCountry(country) {
             alt="${country.toUpperCase()}"
             class="country-flag"
         >
-    `;}
+    `;
 }
 
 // =========================
