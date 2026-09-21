@@ -1493,3 +1493,27 @@ body {
     grid-column: 4;
     grid-row: 1;
 }
+/* =========================================================
+   OBS OVERLAY MODE
+========================================================= */
+
+html {
+    background: transparent !important;
+}
+
+body {
+    background: transparent !important;
+}
+
+.container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Nie pozwalamy, żeby dodatkowe elementy
+   tworzyły niepotrzebne tło */
+
+body,
+html {
+    overflow-x: hidden;
+}
