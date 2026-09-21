@@ -62,7 +62,6 @@ function formatCountry(country) {
     if (!country) return "";
 
     const code = country.toLowerCase();
-
     return `
         <img
             src="https://flagcdn.com/w40/${code}.png"
@@ -70,7 +69,7 @@ function formatCountry(country) {
             class="country-flag"
         >
     `;
-}
+
 
 // =========================
 // AVATAR
