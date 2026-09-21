@@ -435,3 +435,4 @@ getElement("targetInput")
 // START
 // =========================
 
+loadPlayers(DEFAULT_TARGET);
