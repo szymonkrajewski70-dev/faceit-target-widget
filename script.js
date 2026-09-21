@@ -69,7 +69,7 @@ function formatCountry(country) {
             class="country-flag"
         >
     `;
-
+}
 
 // =========================
 // AVATAR
