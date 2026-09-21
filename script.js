@@ -34,7 +34,7 @@ async function getPlayer(nickname) {
 // =========================
 
 function getElement(id) {
-    return document.getElementById(id);
+    return document.getElementById(id);    
 }
 
 
