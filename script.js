@@ -89,7 +89,7 @@ function formatCountry(country) {
 
     const code = country.toUpperCase();
 
-    return `${countryFlag(code)} ${names[code] || code}`;
+    return countryFlag(code);
 }
 
 
