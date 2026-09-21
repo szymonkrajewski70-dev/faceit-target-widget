@@ -98,38 +98,45 @@ function formatCountry(country) {
 // =========================
 
 function setAvatar(elementId, avatar, nickname) {
-
     const container = getElement(elementId);
-
-    if (!container) {
-        return;
-    }
+    if (!container) return;
 
     container.innerHTML = "";
 
-    if (avatar) {
+    let imageUrl = avatar;
 
+    if (nickname === "-krajewsky-") {
+        imageUrl =
+            "https://distribution.faceit-cdn.net/images/ee7c7d24-f0b0-46c0-be3d-ab7bf505a751.jpg";
+    } else if (avatar) {
+        imageUrl =
+            `${API_BASE}/avatar?url=${encodeURIComponent(avatar)}`;
+    }
+
+    if (imageUrl) {
         const image = document.createElement("img");
 
-        image.src = avatar;
+        image.src = imageUrl;
         image.alt = `${nickname} avatar`;
 
         image.onerror = () => {
-
             container.innerHTML =
                 nickname.charAt(0).toUpperCase();
-
         };
 
         container.appendChild(image);
-
     } else {
-
         container.textContent =
             nickname.charAt(0).toUpperCase();
-
     }
 }
+
+    
+
+    
+
+       
+
 
 
 // =========================
