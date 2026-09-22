@@ -688,6 +688,46 @@ function renderPlayerRow(
                 ? String(recent.kills)
                 : "—";
     }
+    if (
+    obsMode &&
+    recent.lastMatch
+) {
+    const lastMatch =
+        recent.lastMatch;
+
+    if (killsElement) {
+        killsElement.textContent =
+            lastMatch.kills !== null
+                ? String(lastMatch.kills)
+                : "—";
+    }
+
+    const obsKdElement =
+        $(`${prefix}RecentKd`);
+
+    if (obsKdElement) {
+        obsKdElement.textContent =
+            lastMatch.kd !== null
+                ? formatNumber(
+                    lastMatch.kd,
+                    2
+                )
+                : "—";
+    }
+
+    const obsHsElement =
+        $(`${prefix}Headshots`);
+
+    if (obsHsElement) {
+        obsHsElement.textContent =
+            lastMatch.headshots !== null
+                ? `${formatNumber(
+                    lastMatch.headshots,
+                    0
+                )}%`
+                : "—";
+    }
+}
 
     /* Recent deaths */
 
