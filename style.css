@@ -2021,7 +2021,6 @@ body.obs-mode .container {
 /* ukrywamy wszystko oprócz mojego gracza */
 
 body.obs-mode .header,
-body.obs-mode .target-player,
 body.obs-mode .comparison-panel,
 body.obs-mode .search-panel,
 body.obs-mode .footer {
@@ -2036,7 +2035,7 @@ body.obs-mode .players-panel {
     padding: 0 !important;
 }
 
-body.obs-mode .my-player {
+body.obs-mode :is(.my-player, .target-player)
     display: block !important;
 
     width: 360px !important;
@@ -2052,7 +2051,7 @@ body.obs-mode .my-player {
 
 /* główny układ */
 
-body.obs-mode .my-player .player-main {
+body.obs-mode :is(.my-player, .target-player) .player-main {
     display: grid !important;
 
     grid-template-columns:
@@ -2075,7 +2074,7 @@ body.obs-mode .my-player .player-main {
    RANGA + AVATAR
 ========================================================= */
 
-body.obs-mode .my-player .avatar-section {
+body.obs-mode :is(.my-player, .target-player) .avatar-section {
     grid-column: 1 !important;
     grid-row: 1 !important;
 
@@ -2093,7 +2092,7 @@ body.obs-mode .my-player .avatar-section {
     padding: 0 !important;
 }
 
-body.obs-mode .my-player .level-ring {
+body.obs-mode :is(.my-player, .target-player) .level-ring {
     width: 34px !important;
     height: 34px !important;
 
@@ -2105,7 +2104,7 @@ body.obs-mode .my-player .level-ring {
     box-shadow: none !important;
 }
 
-body.obs-mode .my-player .level-number {
+body.obs-mode :is(.my-player, .target-player) .level-number {
     width: 34px !important;
     height: 34px !important;
 
@@ -2117,18 +2116,18 @@ body.obs-mode .my-player .level-number {
     background: transparent !important;
 }
 
-body.obs-mode .my-player .level-ring::after {
+body.obs-mode :is(.my-player, .target-player) .level-ring::after {
     display: none !important;
 }
 
-body.obs-mode .my-player .faceit-rank-image {
+body.obs-mode :is(.my-player, .target-player) .faceit-rank-image {
     width: 34px !important;
     height: 34px !important;
 
     object-fit: contain !important;
 }
 
-body.obs-mode .my-player .avatar-wrap {
+body.obs-mode :is(.my-player, .target-player) .avatar-wrap {
     width: 48px !important;
     height: 48px !important;
 
@@ -2137,7 +2136,7 @@ body.obs-mode .my-player .avatar-wrap {
     margin: 0 !important;
 }
 
-body.obs-mode .my-player .flag-wrap {
+body.obs-mode :is(.my-player, .target-player) .flag-wrap {
     left: 28px !important;
     bottom: 4px !important;
 
@@ -2145,7 +2144,7 @@ body.obs-mode .my-player .flag-wrap {
     height: 14px !important;
 }
 
-body.obs-mode .my-player .country-flag {
+body.obs-mode :is(.my-player, .target-player) .country-flag {
     width: 19px !important;
 }
 
@@ -2153,7 +2152,7 @@ body.obs-mode .my-player .country-flag {
    NICK + ELO
 ========================================================= */
 
-body.obs-mode .my-player .player-info {
+body.obs-mode :is(.my-player, .target-player) .player-info {
     grid-column: 2 !important;
     grid-row: 1 !important;
 
@@ -2164,14 +2163,14 @@ body.obs-mode .my-player .player-info {
     padding: 0 4px !important;
 }
 
-body.obs-mode .my-player .player-role {
+body.obs-mode :is(.my-player, .target-player) .player-role {
     font-size: 6px !important;
     line-height: 1 !important;
 
     margin-bottom: 2px !important;
 }
 
-body.obs-mode .my-player .nickname {
+body.obs-mode :is(.my-player, .target-player) .nickname {
     max-width: 100px !important;
 
     font-size: 13px !important;
@@ -2182,7 +2181,7 @@ body.obs-mode .my-player .nickname {
     text-overflow: ellipsis !important;
 }
 
-body.obs-mode .my-player .elo-line {
+body.obs-mode :is(.my-player, .target-player) .elo-line {
     display: flex !important;
 
     align-items: baseline !important;
@@ -2192,19 +2191,19 @@ body.obs-mode .my-player .elo-line {
     margin-top: 3px !important;
 }
 
-body.obs-mode .my-player .elo-line strong {
+body.obs-mode :is(.my-player, .target-player) .elo-line strong {
     font-size: 13px !important;
 }
 
-body.obs-mode .my-player .elo-line span {
+body.obs-mode :is(.my-player, .target-player) .elo-line span {
     font-size: 7px !important;
 }
 
-body.obs-mode .my-player .elo-change {
+body.obs-mode :is(.my-player, .target-player) .elo-change {
     font-size: 8px !important;
 }
 
-body.obs-mode .my-player .level-text {
+body.obs-mode :is(.my-player, .target-player) .level-text {
     display: none !important;
 }
 
@@ -2212,7 +2211,7 @@ body.obs-mode .my-player .level-text {
    STATS: K / KD / HS
 ========================================================= */
 
-body.obs-mode .my-player .compact-stats {
+body.obs-mode :is(.my-player, .target-player) .compact-stats {
     grid-column: 3 !important;
     grid-row: 1 !important;
 
@@ -2235,7 +2234,7 @@ body.obs-mode .my-player .compact-stats {
     border-left: 1px solid #303840 !important;
 }
 
-body.obs-mode .my-player .compact-stat {
+body.obs-mode :is(.my-player, .target-player) .compact-stat {
     display: flex !important;
 
     flex-direction: column !important;
@@ -2251,44 +2250,44 @@ body.obs-mode .my-player .compact-stat {
 
 /* chowamy D */
 
-body.obs-mode .my-player .compact-stat:nth-child(2) {
+body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(2) {
     display: none !important;
 }
 
 /* K */
 
-body.obs-mode .my-player .compact-stat:nth-child(1) {
+body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(1) {
     grid-column: 1 !important;
 }
 
-body.obs-mode .my-player .compact-stat:nth-child(3) {
+body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(3) {
     grid-column: 2 !important;
 }
 
-body.obs-mode .my-player .compact-stat:nth-child(4) {
+body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(4) {
     grid-column: 3 !important;
 }
 
-body.obs-mode .my-player .compact-stat:nth-child(1) span {
+body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(1) span {
     font-size: 6px !important;
 }
 
-body.obs-mode .my-player .compact-stat:nth-child(1) span::after {
+body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(1) span::after {
     content: "ZABÓJSTWA";
     font-size: 6px !important;
 }
 
-body.obs-mode .my-player .compact-stat:nth-child(1) span {
+body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(1) span {
     font-size: 0 !important;
 }
 
-body.obs-mode .my-player .compact-stat span {
+body.obs-mode :is(.my-player, .target-player) .compact-stat span {
     color: #84909c !important;
 
     font-size: 6px !important;
 }
 
-body.obs-mode .my-player .compact-stat strong {
+body.obs-mode :is(.my-player, .target-player) .compact-stat strong {
     margin-top: 2px !important;
 
     color: #ffffff !important;
@@ -2300,7 +2299,7 @@ body.obs-mode .my-player .compact-stat strong {
    WINS / LOSSES / WIN RATE
 ========================================================= */
 
-body.obs-mode .my-player .recent-result-panel {
+body.obs-mode :is(.my-player, .target-player) .recent-result-panel {
     grid-column: 4 !important;
     grid-row: 1 !important;
 
@@ -2325,7 +2324,7 @@ body.obs-mode .my-player .recent-result-panel {
     border-left: 1px solid #303840 !important;
 }
 
-body.obs-mode .my-player .result-box {
+body.obs-mode :is(.my-player, .target-player) .result-box {
     width: 27px !important;
     height: 30px !important;
 
@@ -2341,15 +2340,15 @@ body.obs-mode .my-player .result-box {
     ) !important;
 }
 
-body.obs-mode .my-player .result-box strong {
+body.obs-mode :is(.my-player, .target-player) .result-box strong {
     font-size: 11px !important;
 }
 
-body.obs-mode .my-player .result-box span {
+body.obs-mode :is(.my-player, .target-player) .result-box span {
     display: none !important;
 }
 
-body.obs-mode .my-player .recent-winrate {
+body.obs-mode :is(.my-player, .target-player) .recent-winrate {
     display: flex !important;
 
     flex-direction: column !important;
@@ -2358,11 +2357,11 @@ body.obs-mode .my-player .recent-winrate {
     justify-content: center !important;
 }
 
-body.obs-mode .my-player .recent-winrate span {
+body.obs-mode :is(.my-player, .target-player) .recent-winrate span {
     font-size: 5px !important;
 }
 
-body.obs-mode .my-player .recent-winrate strong {
+body.obs-mode :is(.my-player, .target-player) .recent-winrate strong {
     margin-top: 2px !important;
 
     font-size: 9px !important;
