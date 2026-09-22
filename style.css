@@ -1583,3 +1583,324 @@ html {
 
     box-shadow: none !important;
 }
+/* =========================================================
+   ULTRA COMPACT OBS MODE
+========================================================= */
+
+body {
+    background: transparent !important;
+}
+
+.container {
+    width: 520px !important;
+    max-width: 520px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Header minimalny */
+
+.header {
+    display: none !important;
+}
+
+/* Jeden gracz = kompaktowy panel */
+
+.players-panel {
+    gap: 6px !important;
+    margin: 0 !important;
+}
+
+.player-row {
+    min-height: 86px !important;
+    height: 86px !important;
+
+    padding: 8px 10px !important;
+
+    border-radius: 10px !important;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.28) !important;
+}
+
+.player-main {
+    display: grid !important;
+
+    grid-template-columns:
+        48px
+        56px
+        minmax(120px, 1fr)
+        55px
+        55px
+        55px
+        82px !important;
+
+    align-items: center !important;
+
+    min-height: 68px !important;
+}
+
+/* Badge */
+
+.level-ring {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+
+    width: 42px !important;
+    height: 42px !important;
+
+    margin: 0 !important;
+}
+
+.level-number {
+    width: 42px !important;
+    height: 42px !important;
+}
+
+.faceit-rank-image {
+    width: 42px !important;
+    height: 42px !important;
+}
+
+/* Avatar */
+
+.avatar-section {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+
+    width: 56px !important;
+    min-height: 56px !important;
+
+    padding: 0 !important;
+}
+
+.avatar-wrap {
+    width: 52px !important;
+    height: 52px !important;
+}
+
+.flag-wrap {
+    left: 28px !important;
+    bottom: 0 !important;
+
+    width: 22px !important;
+    height: 15px !important;
+}
+
+.flag-wrap .country-flag {
+    width: 21px !important;
+}
+
+/* Nick + ELO */
+
+.player-info {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
+
+    margin: 0 !important;
+    padding: 0 4px !important;
+
+    width: auto !important;
+}
+
+.player-role {
+    font-size: 6px !important;
+    margin-bottom: 1px !important;
+}
+
+.nickname {
+    font-size: 13px !important;
+    line-height: 1 !important;
+}
+
+.elo-line {
+    gap: 4px !important;
+    margin-top: 3px !important;
+}
+
+.elo-line strong {
+    font-size: 14px !important;
+}
+
+.elo-line > span:first-of-type {
+    display: none !important;
+}
+
+.elo-change {
+    font-size: 10px !important;
+}
+
+.level-text {
+    display: none !important;
+}
+
+/* MECZE */
+
+.player-main > .stat-block:nth-of-type(3) {
+    display: none !important;
+}
+
+/* WIN RATE */
+
+.player-main > .stat-block:nth-of-type(4) {
+    display: none !important;
+}
+
+/* K/D */
+
+.player-main > .stat-block:nth-of-type(5) {
+    display: block !important;
+
+    grid-column: 4 !important;
+    grid-row: 1 !important;
+
+    min-height: 40px !important;
+
+    padding: 0 6px !important;
+
+    border-left: 1px solid #313942 !important;
+}
+
+.player-main > .stat-block:nth-of-type(5) .stat-label {
+    font-size: 6px !important;
+}
+
+.player-main > .stat-block:nth-of-type(5) strong {
+    margin-top: 2px !important;
+    font-size: 12px !important;
+}
+
+/* Last 5 */
+
+.recent-block {
+    grid-column: 5 !important;
+    grid-row: 1 !important;
+
+    min-height: 40px !important;
+
+    padding: 0 6px !important;
+}
+
+.recent-block > .stat-label {
+    display: none !important;
+}
+
+.form {
+    gap: 3px !important;
+}
+
+.form-result {
+    width: 17px !important;
+    height: 17px !important;
+
+    font-size: 7px !important;
+}
+
+/* WINS / LOSSES */
+
+.recent-result-panel {
+    grid-column: 6 !important;
+    grid-row: 1 !important;
+
+    min-height: 40px !important;
+
+    padding-left: 6px !important;
+
+    border-left: 1px solid #313942 !important;
+}
+
+.result-box {
+    width: 32px !important;
+
+    border: 0 !important;
+
+    background: transparent !important;
+}
+
+.result-box strong {
+    font-size: 13px !important;
+}
+
+.result-box span {
+    display: none !important;
+}
+
+.recent-winrate {
+    display: none !important;
+}
+
+/* Ukrywamy K/D/K/HS z dolnego rzędu */
+
+.compact-stats {
+    display: none !important;
+}
+
+/* Comparison */
+
+.comparison-panel {
+    margin-top: 6px !important;
+
+    min-height: 48px !important;
+
+    grid-template-columns:
+        repeat(3, 1fr) !important;
+
+    border-radius: 9px !important;
+}
+
+.comparison-card {
+    padding: 7px 9px !important;
+}
+
+.comparison-card > span {
+    font-size: 6px !important;
+}
+
+.comparison-card > strong {
+    margin-top: 2px !important;
+    font-size: 13px !important;
+}
+
+.comparison-card:nth-child(2),
+.comparison-card:nth-child(3) {
+    display: none !important;
+}
+
+/* Search */
+
+.search-panel {
+    margin-top: 6px !important;
+}
+
+.search-box {
+    min-height: 36px !important;
+
+    padding-left: 8px !important;
+
+    border-radius: 8px !important;
+}
+
+.search-icon {
+    width: 22px !important;
+    font-size: 20px !important;
+}
+
+.search-box input {
+    font-size: 11px !important;
+}
+
+.search-box button {
+    width: 42px !important;
+
+    margin: 3px !important;
+
+    border-radius: 6px !important;
+
+    font-size: 18px !important;
+}
+
+/* Footer */
+
+.footer {
+    display: none !important;
+}
