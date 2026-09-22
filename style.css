@@ -1584,31 +1584,433 @@ html {
     box-shadow: none !important;
 }
 /* =========================================================
-   ULTRA COMPACT OBS MODE
+   FINAL MINIMAL OBS WIDGET
 ========================================================= */
 
+html,
 body {
     background: transparent !important;
 }
 
 .container {
-    width: 520px !important;
-    max-width: 520px !important;
+    width: 560px !important;
+    max-width: 560px !important;
+
     margin: 0 !important;
     padding: 0 !important;
 }
-
-/* Header minimalny */
 
 .header {
     display: none !important;
 }
 
-/* Jeden gracz = kompaktowy panel */
+/* =========================================================
+   PLAYERS
+========================================================= */
 
 .players-panel {
-    gap: 6px !important;
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 5px !important;
+
     margin: 0 !important;
+}
+
+/* =========================================================
+   PLAYER CARD
+========================================================= */
+
+.player-row {
+    width: 560px !important;
+    height: 82px !important;
+    min-height: 82px !important;
+
+    padding: 7px 9px !important;
+
+    border-radius: 9px !important;
+
+    overflow: hidden !important;
+}
+
+/* =========================================================
+   PLAYER MAIN GRID
+========================================================= */
+
+.player-main {
+    display: grid !important;
+
+    grid-template-columns:
+        42px
+        50px
+        minmax(150px, 1fr)
+        170px
+        86px !important;
+
+    grid-template-rows: 66px !important;
+
+    align-items: center !important;
+
+    width: 100% !important;
+    height: 66px !important;
+
+    min-height: 66px !important;
+
+    gap: 0 !important;
+}
+
+/* =========================================================
+   LEVEL BADGE
+========================================================= */
+
+.player-main > .avatar-section {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+
+    width: 42px !important;
+    height: 66px !important;
+
+    min-height: 66px !important;
+
+    padding: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    position: relative !important;
+}
+
+.level-ring {
+    width: 38px !important;
+    height: 38px !important;
+
+    flex: 0 0 38px !important;
+
+    margin: 0 !important;
+}
+
+.level-number {
+    width: 38px !important;
+    height: 38px !important;
+}
+
+.faceit-rank-image {
+    width: 38px !important;
+    height: 38px !important;
+}
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.avatar-wrap {
+    width: 50px !important;
+    height: 50px !important;
+
+    flex: 0 0 50px !important;
+
+    margin-left: 0 !important;
+}
+
+.flag-wrap {
+    left: 28px !important;
+    bottom: 4px !important;
+
+    width: 21px !important;
+    height: 14px !important;
+}
+
+.flag-wrap .country-flag {
+    width: 20px !important;
+}
+
+/*
+   avatar-section zawiera badge + avatar.
+   Układamy je obok siebie.
+*/
+
+.player-main > .avatar-section {
+    flex-direction: row !important;
+}
+
+/* =========================================================
+   PLAYER INFO
+========================================================= */
+
+.player-info {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
+
+    width: auto !important;
+
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    padding: 0 8px !important;
+}
+
+.player-role {
+    margin-bottom: 2px !important;
+
+    font-size: 6px !important;
+
+    line-height: 1 !important;
+}
+
+.nickname {
+    max-width: 155px !important;
+
+    font-size: 14px !important;
+
+    line-height: 1.05 !important;
+}
+
+.elo-line {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 4px !important;
+
+    margin-top: 3px !important;
+}
+
+.elo-line strong {
+    font-size: 14px !important;
+}
+
+.elo-line > span:first-of-type {
+    display: none !important;
+}
+
+.elo-change {
+    font-size: 10px !important;
+}
+
+.level-text {
+    display: none !important;
+}
+
+/* =========================================================
+   HIDE LARGE OLD STATS
+========================================================= */
+
+.player-main > .stat-block {
+    display: none !important;
+}
+
+.player-main > .recent-block {
+    display: none !important;
+}
+
+/* =========================================================
+   K / D / K-D / HS
+========================================================= */
+
+.player-main > .compact-stats {
+    grid-column: 4 !important;
+    grid-row: 1 !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, 1fr) !important;
+
+    gap: 2px !important;
+
+    width: 170px !important;
+    height: 48px !important;
+
+    min-height: 48px !important;
+
+    padding: 0 !important;
+
+    border-left: 1px solid #2d353e !important;
+}
+
+.compact-stat {
+    border: 0 !important;
+
+    border-radius: 0 !important;
+
+    background: transparent !important;
+
+    min-width: 0 !important;
+
+    padding: 0 !important;
+}
+
+.compact-stat span {
+    font-size: 6px !important;
+}
+
+.compact-stat strong {
+    margin-top: 3px !important;
+
+    font-size: 11px !important;
+}
+
+/* =========================================================
+   WINS / LOSSES
+========================================================= */
+
+.player-main > .recent-result-panel {
+    grid-column: 5 !important;
+    grid-row: 1 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 5px !important;
+
+    width: 86px !important;
+    height: 48px !important;
+
+    min-height: 48px !important;
+
+    padding-left: 8px !important;
+
+    border-left: 1px solid #2d353e !important;
+}
+
+.result-box {
+    width: 35px !important;
+    height: 38px !important;
+
+    border: 0 !important;
+
+    border-radius: 7px !important;
+
+    background: #11171c !important;
+}
+
+.result-box strong {
+    font-size: 13px !important;
+}
+
+.result-box span {
+    display: none !important;
+}
+
+.recent-winrate {
+    display: none !important;
+}
+
+/* =========================================================
+   COMPARISON
+========================================================= */
+
+.comparison-panel {
+    width: 560px !important;
+
+    min-height: 42px !important;
+
+    height: 42px !important;
+
+    margin-top: 5px !important;
+
+    grid-template-columns:
+        2fr
+        1fr
+        1fr !important;
+
+    border-radius: 8px !important;
+}
+
+.comparison-card {
+    padding: 5px 9px !important;
+
+    min-height: 42px !important;
+}
+
+.comparison-card > span {
+    font-size: 6px !important;
+}
+
+.comparison-card > strong {
+    margin-top: 1px !important;
+
+    font-size: 12px !important;
+}
+
+.comparison-card > small {
+    font-size: 7px !important;
+
+    margin-top: 1px !important;
+}
+
+.comparison-card:nth-child(2),
+.comparison-card:nth-child(3) {
+    display: none !important;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-panel {
+    width: 560px !important;
+
+    margin-top: 5px !important;
+}
+
+.search-box {
+    width: 560px !important;
+
+    height: 34px !important;
+    min-height: 34px !important;
+
+    padding-left: 7px !important;
+
+    border-radius: 7px !important;
+}
+
+.search-icon {
+    width: 20px !important;
+
+    font-size: 18px !important;
+}
+
+.search-box input {
+    font-size: 10px !important;
+}
+
+.search-box button {
+    width: 40px !important;
+
+    height: 30px !important;
+
+    margin: 2px !important;
+
+    border-radius: 5px !important;
+
+    font-size: 18px !important;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    display: none !important;
+}
+
+/* =========================================================
+   OBS MOBILE-SIZE SAFETY
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .container,
+    .player-row,
+    .comparison-panel,
+    .search-panel,
+    .search-box {
+        width: 560px !important;
+        max-width: 560px !important;
+    }
 }
 
 .player-row {
