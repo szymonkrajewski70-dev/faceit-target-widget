@@ -752,33 +752,35 @@ const resultTwo =
 
                 </div>
 
-                <div class="results">
+                                <div class="results">
 
-    <div class="result win-count">
-        ${formatNumber(recent.wins)}
-    </div>
+                    <div class="result win-count">
+                        ${formatNumber(recent.wins)}
+                    </div>
 
-    <div class="result loss-count">
-        ${formatNumber(recent.losses)}
-    </div>
+                    <div class="result loss-count">
+                        ${formatNumber(recent.losses)}
+                    </div>
 
-    <div class="winrate">
+                    <div class="winrate">
 
-        <div class="winrate-label">
-            WIN RATE
-        </div>
+                        <div class="winrate-label">
+                            WIN RATE
+                        </div>
 
-        <div class="winrate-value">
-            ${
-                Number.isFinite(winrate)
-                    ? `${formatNumber(winrate, 0)}%`
-                    : "—"
-            }
-        </div>
+                        <div class="winrate-value">
+                            ${
+                                Number.isFinite(winrate)
+                                    ? `${formatNumber(winrate, 0)}%`
+                                    : "—"
+                            }
+                        </div>
 
-    </div>
+                    </div>
 
-    </div>
+                </div>
+
+            </div>
         `;
     }
 
