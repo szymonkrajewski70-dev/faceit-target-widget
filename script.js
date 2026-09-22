@@ -4,7 +4,8 @@ const params =
     new URLSearchParams(
         window.location.search
     );
-
+const obsMode =
+    params.get("obs") === "1";
 const requestedMe =
     params.get("me")?.trim();
 
@@ -1310,6 +1311,11 @@ function setupSearch() {
 document.addEventListener(
     "DOMContentLoaded",
     async () => {
+        if (obsMode) {
+    document.body.classList.add(
+        "obs-mode"
+    );
+}
         setupSearch();
 
         try {
