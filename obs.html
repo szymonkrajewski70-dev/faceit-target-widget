@@ -578,29 +578,38 @@
             lastMatch.headshots ??
             recent.headshots;
 
-        const firstResult =
-            Number(
-                recent.form?.[0]
-            );
+       const firstResult =
+    recent.form?.[0];
 
-        const resultOne =
-            Number.isFinite(firstResult)
-                ? firstResult > 0
-                    ? "W"
-                    : "L"
-                : "—";
+const secondResult =
+    recent.form?.[1];
 
-        const secondResult =
-            Number(
-                recent.form?.[1]
-            );
+function normalizeResult(result) {
+    if (
+        result === "W" ||
+        result === "w" ||
+        Number(result) > 0
+    ) {
+        return "W";
+    }
 
-        const resultTwo =
-            Number.isFinite(secondResult)
-                ? secondResult > 0
-                    ? "W"
-                    : "L"
-                : "—";
+    if (
+        result === "L" ||
+        result === "l" ||
+        Number(result) === 0 ||
+        Number(result) < 0
+    ) {
+        return "L";
+    }
+
+    return "—";
+}
+
+const resultOne =
+    normalizeResult(firstResult);
+
+const resultTwo =
+    normalizeResult(secondResult);
 
         return `
             <div class="player-card">
