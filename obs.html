@@ -364,6 +364,376 @@
                 width: 390px;
             }
         }
+    /* =========================================================
+   FINAL OBS STYLE
+========================================================= */
+
+html,
+body {
+    width: 100%;
+    height: auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    color: #ffffff;
+
+    overflow: visible !important;
+
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+#app {
+    width: 520px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 5px !important;
+
+    overflow: visible !important;
+}
+
+.player-card {
+    width: 520px !important;
+    height: 80px !important;
+    min-height: 80px !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        92px
+        145px
+        145px
+        110px !important;
+
+    align-items: center !important;
+
+    padding: 7px 8px !important;
+
+    border: 1px solid #27333d !important;
+    border-left: 3px solid #ff5500 !important;
+
+    border-radius: 10px !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #11181d 0%,
+            #0d1216 100%
+        ) !important;
+
+    box-shadow:
+        0 5px 14px rgba(
+            0,
+            0,
+            0,
+            0.28
+        ) !important;
+
+    overflow: hidden !important;
+}
+
+/* =========================
+   LEWY BLOK
+========================= */
+
+.identity {
+    width: 92px !important;
+    height: 64px !important;
+
+    display: flex !important;
+    align-items: center !important;
+}
+
+.rank {
+    width: 36px !important;
+    height: 36px !important;
+
+    flex: 0 0 36px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.rank img {
+    width: 36px !important;
+    height: 36px !important;
+
+    object-fit: contain !important;
+}
+
+.avatar-wrap {
+    position: relative !important;
+
+    width: 50px !important;
+    height: 50px !important;
+
+    margin-left: 3px !important;
+}
+
+.avatar {
+    display: block !important;
+
+    width: 50px !important;
+    height: 50px !important;
+
+    object-fit: cover !important;
+
+    border-radius: 50% !important;
+
+    border: 1px solid #2d3943 !important;
+}
+
+.online {
+    right: -1px !important;
+    bottom: 1px !important;
+
+    width: 10px !important;
+    height: 10px !important;
+
+    border: 2px solid #11181d !important;
+}
+
+.flag {
+    left: 31px !important;
+    bottom: -2px !important;
+
+    width: 20px !important;
+    height: 13px !important;
+}
+
+/* =========================
+   NICK + ELO
+========================= */
+
+.player-info {
+    width: 145px !important;
+    min-width: 0 !important;
+
+    padding: 0 7px !important;
+    margin: 0 !important;
+}
+
+.role {
+    margin-bottom: 3px !important;
+
+    color: #7f9bb0 !important;
+
+    font-size: 6px !important;
+    font-weight: 800 !important;
+
+    line-height: 1 !important;
+    letter-spacing: 0.12em !important;
+}
+
+.nickname {
+    max-width: 135px !important;
+
+    color: #ffffff !important;
+
+    font-size: 15px !important;
+    font-weight: 900 !important;
+
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.elo-line {
+    display: flex !important;
+    align-items: baseline !important;
+
+    gap: 4px !important;
+
+    margin-top: 4px !important;
+}
+
+.elo {
+    color: #ffffff !important;
+
+    font-size: 15px !important;
+    font-weight: 900 !important;
+}
+
+.elo-label {
+    color: #7e8c98 !important;
+
+    font-size: 6px !important;
+    font-weight: 800 !important;
+}
+
+.elo24 {
+    color: #aab6c1 !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+}
+
+/* =========================
+   STATYSTYKI
+========================= */
+
+.stats {
+    width: 145px !important;
+    height: 46px !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, 1fr) !important;
+
+    align-items: stretch !important;
+
+    padding: 0 5px !important;
+    margin: 0 !important;
+
+    border-left: 1px solid #2b353e !important;
+}
+
+.stat {
+    min-width: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+}
+
+.stat-label {
+    color: #8593a0 !important;
+
+    font-size: 6px !important;
+    font-weight: 800 !important;
+
+    line-height: 1 !important;
+
+    letter-spacing: 0.05em !important;
+
+    white-space: nowrap !important;
+}
+
+.stat-value {
+    margin-top: 4px !important;
+
+    color: #ffffff !important;
+
+    font-size: 12px !important;
+    font-weight: 900 !important;
+
+    line-height: 1 !important;
+}
+
+/* =========================
+   WINS / LOSSES / WIN RATE
+========================= */
+
+.results {
+    width: 110px !important;
+    height: 46px !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        28px
+        28px
+        1fr !important;
+
+    align-items: center !important;
+
+    gap: 5px !important;
+
+    padding: 0 0 0 7px !important;
+    margin: 0 !important;
+
+    border-left: 1px solid #2b353e !important;
+}
+
+.result {
+    width: 28px !important;
+    height: 34px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: 0 !important;
+
+    border-radius: 7px !important;
+
+    background: #111a20 !important;
+
+    font-size: 12px !important;
+    font-weight: 900 !important;
+}
+
+.win-count {
+    color: #1ee875 !important;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(
+            30,
+            232,
+            117,
+            0.18
+        ) !important;
+}
+
+.loss-count {
+    color: #ff5264 !important;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(
+            255,
+            82,
+            100,
+            0.18
+        ) !important;
+}
+
+.winrate {
+    width: 42px !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.winrate-label {
+    color: #8593a0 !important;
+
+    font-size: 5px !important;
+    font-weight: 800 !important;
+
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+}
+
+.winrate-value {
+    margin-top: 4px !important;
+
+    color: #ffffff !important;
+
+    font-size: 11px !important;
+    font-weight: 900 !important;
+
+    line-height: 1 !important;
+}
     </style>
 </head>
 
