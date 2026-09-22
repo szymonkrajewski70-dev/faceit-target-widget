@@ -748,53 +748,31 @@ const resultTwo =
 
                 <div class="results">
 
-                    <div
-                        class="result ${
-                            resultOne === "W"
-                                ? "win"
-                                : "loss"
-                        }"
-                    >
-                        ${resultOne}
-                    </div>
+    <div class="result win-count">
+        ${formatNumber(recent.wins)}
+    </div>
 
-                    <div
-                        class="result ${
-                            resultTwo === "W"
-                                ? "win"
-                                : "loss"
-                        }"
-                    >
-                        ${resultTwo}
-                    </div>
+    <div class="result loss-count">
+        ${formatNumber(recent.losses)}
+    </div>
 
-                    <div class="winrate">
+    <div class="winrate">
 
-                        <div class="winrate-label">
-                            Win Rate
-                        </div>
+        <div class="winrate-label">
+            WIN RATE
+        </div>
 
-                        <div class="winrate-value">
-                            ${
-                                Number.isFinite(
-                                    winrate
-                                )
-                                    ? `${formatNumber(
-                                        winrate,
-                                        0
-                                    )}%`
-                                    : "—"
-                            }
-                        </div>
+        <div class="winrate-value">
+            ${
+                Number.isFinite(winrate)
+                    ? `${formatNumber(winrate, 0)}%`
+                    : "—"
+            }
+        </div>
 
-                    </div>
+    </div>
 
-                </div>
-
-            </div>
-        `;
-    }
-
+</div>
     async function loadWidget() {
         const app =
             $("#app");
