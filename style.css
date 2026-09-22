@@ -1998,7 +1998,7 @@ body {
 }
 
 /* =========================================================
-   MINI OBS PLAYER CARD
+   FINAL MINI OBS DUO
 ========================================================= */
 
 body.obs-mode {
@@ -2009,16 +2009,14 @@ body.obs-mode {
 }
 
 body.obs-mode .container {
-    width: 360px !important;
-    max-width: 360px !important;
-
+    width: 390px !important;
+    max-width: 390px !important;
     margin: 0 !important;
     padding: 0 !important;
-
     background: transparent !important;
 }
 
-/* ukrywamy wszystko oprócz mojego gracza */
+/* ukrywamy wszystko poza dwiema kartami */
 
 body.obs-mode .header,
 body.obs-mode .comparison-panel,
@@ -2027,92 +2025,90 @@ body.obs-mode .footer {
     display: none !important;
 }
 
-/* główna karta */
-
 body.obs-mode .players-panel {
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
     margin: 0 !important;
     padding: 0 !important;
-}
-
-body.obs-mode :is(.my-player, .target-player)
-    display: block !important;
-
-    width: 360px !important;
-    height: 78px !important;
-    min-height: 78px !important;
-
-    padding: 7px 8px !important;
-    margin: 0 !important;
-
-    border-radius: 9px !important;
-    overflow: hidden !important;
-}
-
-/* główny układ */
-
-body.obs-mode :is(.my-player, .target-player) .player-main {
-    display: grid !important;
-
-    grid-template-columns:
-        54px
-        105px
-        111px
-        72px !important;
-
-    grid-template-rows: 64px !important;
-
-    width: 100% !important;
-    height: 64px !important;
-
-    align-items: center !important;
-
-    gap: 0 !important;
 }
 
 /* =========================================================
-   RANGA + AVATAR
+   PLAYER CARD
 ========================================================= */
 
-body.obs-mode :is(.my-player, .target-player) .avatar-section {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-
+body.obs-mode :is(.my-player, .target-player) {
     position: relative !important;
 
-    display: flex !important;
+    width: 390px !important;
+    height: 72px !important;
+    min-height: 72px !important;
 
-    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-    width: 54px !important;
-    height: 64px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+}
 
-    min-height: 64px !important;
+/* =========================================================
+   MAIN AREA
+========================================================= */
 
+body.obs-mode :is(.my-player, .target-player) .player-main {
+    position: relative !important;
+
+    display: block !important;
+
+    width: 100% !important;
+    height: 72px !important;
+
+    margin: 0 !important;
     padding: 0 !important;
 }
 
+/* =========================================================
+   LEVEL + AVATAR
+========================================================= */
+
+body.obs-mode :is(.my-player, .target-player) .avatar-section {
+    position: absolute !important;
+
+    left: 7px !important;
+    top: 8px !important;
+
+    width: 86px !important;
+    height: 56px !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
 body.obs-mode :is(.my-player, .target-player) .level-ring {
-    width: 34px !important;
-    height: 34px !important;
+    position: relative !important;
 
-    flex: 0 0 34px !important;
+    width: 32px !important;
+    height: 32px !important;
 
-    margin: 0 2px 0 0 !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+
+    margin: 0 3px 0 0 !important;
 
     background: transparent !important;
     box-shadow: none !important;
 }
 
 body.obs-mode :is(.my-player, .target-player) .level-number {
-    width: 34px !important;
-    height: 34px !important;
+    width: 32px !important;
+    height: 32px !important;
 
     padding: 0 !important;
 
     border: 0 !important;
-    border-radius: 0 !important;
-
     background: transparent !important;
 }
 
@@ -2121,9 +2117,8 @@ body.obs-mode :is(.my-player, .target-player) .level-ring::after {
 }
 
 body.obs-mode :is(.my-player, .target-player) .faceit-rank-image {
-    width: 34px !important;
-    height: 34px !important;
-
+    width: 32px !important;
+    height: 32px !important;
     object-fit: contain !important;
 }
 
@@ -2131,21 +2126,22 @@ body.obs-mode :is(.my-player, .target-player) .avatar-wrap {
     width: 48px !important;
     height: 48px !important;
 
-    flex: 0 0 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
 
     margin: 0 !important;
 }
 
 body.obs-mode :is(.my-player, .target-player) .flag-wrap {
-    left: 28px !important;
-    bottom: 4px !important;
+    left: 53px !important;
+    bottom: 2px !important;
 
-    width: 20px !important;
-    height: 14px !important;
+    width: 19px !important;
+    height: 13px !important;
 }
 
 body.obs-mode :is(.my-player, .target-player) .country-flag {
-    width: 19px !important;
+    width: 18px !important;
 }
 
 /* =========================================================
@@ -2153,25 +2149,30 @@ body.obs-mode :is(.my-player, .target-player) .country-flag {
 ========================================================= */
 
 body.obs-mode :is(.my-player, .target-player) .player-info {
-    grid-column: 2 !important;
-    grid-row: 1 !important;
+    position: absolute !important;
 
-    width: 105px !important;
-    min-width: 0 !important;
+    left: 96px !important;
+    top: 10px !important;
 
+    width: 92px !important;
+
+    padding: 0 !important;
     margin: 0 !important;
-    padding: 0 4px !important;
+
+    overflow: hidden !important;
 }
 
 body.obs-mode :is(.my-player, .target-player) .player-role {
-    font-size: 6px !important;
+    font-size: 5px !important;
     line-height: 1 !important;
 
-    margin-bottom: 2px !important;
+    margin: 0 0 2px 0 !important;
 }
 
 body.obs-mode :is(.my-player, .target-player) .nickname {
-    max-width: 100px !important;
+    display: block !important;
+
+    max-width: 92px !important;
 
     font-size: 13px !important;
     line-height: 1 !important;
@@ -2183,7 +2184,6 @@ body.obs-mode :is(.my-player, .target-player) .nickname {
 
 body.obs-mode :is(.my-player, .target-player) .elo-line {
     display: flex !important;
-
     align-items: baseline !important;
 
     gap: 3px !important;
@@ -2196,7 +2196,7 @@ body.obs-mode :is(.my-player, .target-player) .elo-line strong {
 }
 
 body.obs-mode :is(.my-player, .target-player) .elo-line span {
-    font-size: 7px !important;
+    font-size: 6px !important;
 }
 
 body.obs-mode :is(.my-player, .target-player) .elo-change {
@@ -2208,12 +2208,17 @@ body.obs-mode :is(.my-player, .target-player) .level-text {
 }
 
 /* =========================================================
-   STATS: K / KD / HS
+   K / KD / HS
 ========================================================= */
 
 body.obs-mode :is(.my-player, .target-player) .compact-stats {
-    grid-column: 3 !important;
-    grid-row: 1 !important;
+    position: absolute !important;
+
+    left: 194px !important;
+    top: 15px !important;
+
+    width: 100px !important;
+    height: 42px !important;
 
     display: grid !important;
 
@@ -2222,14 +2227,10 @@ body.obs-mode :is(.my-player, .target-player) .compact-stats {
         1fr
         1fr !important;
 
-    width: 111px !important;
-    height: 42px !important;
+    gap: 0 !important;
 
-    min-height: 42px !important;
-
-    padding: 0 5px !important;
-
-    gap: 2px !important;
+    padding: 0 !important;
+    margin: 0 !important;
 
     border-left: 1px solid #303840 !important;
 }
@@ -2238,11 +2239,10 @@ body.obs-mode :is(.my-player, .target-player) .compact-stat {
     display: flex !important;
 
     flex-direction: column !important;
-
     align-items: center !important;
     justify-content: center !important;
 
-    min-width: 0 !important;
+    padding: 0 !important;
 
     border: 0 !important;
     background: transparent !important;
@@ -2260,39 +2260,36 @@ body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(1) {
     grid-column: 1 !important;
 }
 
+/* K/D */
+
 body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(3) {
     grid-column: 2 !important;
 }
+
+/* HS */
 
 body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(4) {
     grid-column: 3 !important;
 }
 
-body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(1) span {
-    font-size: 6px !important;
+body.obs-mode :is(.my-player, .target-player) .compact-stat span {
+    color: #7f8a95 !important;
+    font-size: 5px !important;
 }
 
-body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(1) span::after {
-    content: "ZABÓJSTWA";
-    font-size: 6px !important;
+body.obs-mode :is(.my-player, .target-player) .compact-stat strong {
+    margin-top: 2px !important;
+    color: #ffffff !important;
+    font-size: 11px !important;
 }
 
 body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(1) span {
     font-size: 0 !important;
 }
 
-body.obs-mode :is(.my-player, .target-player) .compact-stat span {
-    color: #84909c !important;
-
-    font-size: 6px !important;
-}
-
-body.obs-mode :is(.my-player, .target-player) .compact-stat strong {
-    margin-top: 2px !important;
-
-    color: #ffffff !important;
-
-    font-size: 11px !important;
+body.obs-mode :is(.my-player, .target-player) .compact-stat:nth-child(1) span::after {
+    content: "ZABÓJSTWA";
+    font-size: 5px !important;
 }
 
 /* =========================================================
@@ -2300,48 +2297,47 @@ body.obs-mode :is(.my-player, .target-player) .compact-stat strong {
 ========================================================= */
 
 body.obs-mode :is(.my-player, .target-player) .recent-result-panel {
-    grid-column: 4 !important;
-    grid-row: 1 !important;
+    position: absolute !important;
+
+    right: 5px !important;
+    top: 13px !important;
+
+    width: 125px !important;
+    height: 46px !important;
 
     display: grid !important;
 
     grid-template-columns:
-        28px
-        28px
+        32px
+        32px
         1fr !important;
 
     align-items: center !important;
 
-    width: 72px !important;
-    height: 42px !important;
+    gap: 4px !important;
 
-    min-height: 42px !important;
-
-    gap: 3px !important;
-
-    padding-left: 5px !important;
+    padding: 0 0 0 7px !important;
+    margin: 0 !important;
 
     border-left: 1px solid #303840 !important;
 }
 
 body.obs-mode :is(.my-player, .target-player) .result-box {
-    width: 27px !important;
-    height: 30px !important;
+    width: 30px !important;
+    height: 34px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
     border: 0 !important;
-
     border-radius: 6px !important;
 
-    background: rgba(
-        20,
-        28,
-        34,
-        0.9
-    ) !important;
+    background: rgba(16, 24, 30, 0.85) !important;
 }
 
 body.obs-mode :is(.my-player, .target-player) .result-box strong {
-    font-size: 11px !important;
+    font-size: 12px !important;
 }
 
 body.obs-mode :is(.my-player, .target-player) .result-box span {
@@ -2362,7 +2358,6 @@ body.obs-mode :is(.my-player, .target-player) .recent-winrate span {
 }
 
 body.obs-mode :is(.my-player, .target-player) .recent-winrate strong {
-    margin-top: 2px !important;
-
-    font-size: 9px !important;
+    margin-top: 1px !important;
+    font-size: 11px !important;
 }
