@@ -899,7 +899,11 @@ body {
     ) {
         const recent =
             player.recent || {};
-
+const today =
+    player.today || {
+        wins: 0,
+        losses: 0
+    };
         const lastMatch =
             recent.lastMatch || {};
 
@@ -1129,11 +1133,11 @@ const resultTwo =
                                 <div class="results">
 
                     <div class="result win-count">
-                        ${formatNumber(recent.wins)}
+                        ${formatNumber(today.wins)}
                     </div>
 
                     <div class="result loss-count">
-                        ${formatNumber(recent.losses)}
+                        ${formatNumber(today.losses)}
                     </div>
 
                     <div class="winrate">
