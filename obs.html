@@ -952,8 +952,11 @@ const winrate =
             recent.kills;
 
         const kd =
-            lastMatch.kd ??
-            recent.kd;
+    Number.isFinite(
+        Number(today.kd)
+    )
+        ? Number(today.kd)
+        : null;
 
         const hs =
             lastMatch.headshots ??
