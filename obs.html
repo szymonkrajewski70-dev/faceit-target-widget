@@ -913,27 +913,24 @@ const today =
         const losses =
             Number(recent.losses);
 
-        const winrateRecent =
-            Number.isFinite(wins) &&
-            Number.isFinite(losses) &&
-            wins + losses > 0
-                ? Math.round(
-                    wins /
-                    (wins + losses) *
-                    100
-                )
-                : null;
+       const todayWins =
+    Number(today.wins) || 0;
 
-        const lifetimeWinrate =
-            Number(player.stats?.wins);
+const todayLosses =
+    Number(today.losses) || 0;
 
-        const winrate =
-            Number.isFinite(
-                winrateRecent
-            )
-                ? winrateRecent
-                : lifetimeWinrate;
+const todayMatches =
+    todayWins +
+    todayLosses;
 
+const winrate =
+    todayMatches > 0
+        ? Math.round(
+            todayWins /
+            todayMatches *
+            100
+        )
+        : 0;
         const elo24 =
             player.elo24h;
 
