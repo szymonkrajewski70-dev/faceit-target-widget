@@ -495,15 +495,14 @@
         params.get("me")?.trim() ||
         "-krajewsky-";
 
-    const TARGET =
-        params.get("target")?.trim() ||
-        (
-            ME.toLowerCase() ===
-            "-tobol-".toLowerCase()
-        )
+   const TARGET =
+    params.get("target")?.trim() ||
+    (
+        ME.toLowerCase() ===
+        "-tobol-".toLowerCase()
             ? "-krajewsky-"
-            : "-TOBOL-";
-
+            : "-TOBOL-"
+    );
     const RANK_IMAGES = {
         1: "https://support.faceit.com/hc/article_attachments/10525200575516",
         2: "https://support.faceit.com/hc/article_attachments/10525189649308",
