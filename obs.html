@@ -8,7 +8,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>FACEIT TARGET OBS</title>
+    <title>FACEIT OBS Widget</title>
 
     <style>
         * {
@@ -17,71 +17,85 @@
 
         html,
         body {
+            width: 100%;
+            min-width: 0;
             margin: 0;
             padding: 0;
 
-            width: 100%;
-            min-height: 100%;
-
             background: transparent;
+
+            overflow: visible;
+
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+
+            text-rendering: geometricPrecision;
+        }
+
+        body {
+            color: #ffffff;
 
             font-family:
                 Inter,
+                "Segoe UI",
                 Arial,
                 Helvetica,
                 sans-serif;
         }
 
-       body {
-    color: #ffffff;
-    overflow: visible;
-}
+        #app {
+            width: 900px;
 
-#app {
-    width: 390px;
+            display: flex;
+            flex-direction: column;
 
-    height: 161px;
-    min-height: 161px;
+            gap: 8px;
 
-    display: flex;
-    flex-direction: column;
+            overflow: visible;
+        }
 
-    gap: 5px;
+        /* =========================================================
+           PLAYER CARD
+        ========================================================= */
 
-    overflow: visible;
-}
         .player-card {
             position: relative;
 
-            width: 390px;
-            height: 78px;
+            width: 900px;
+            height: 108px;
 
             display: grid;
 
-           grid-template-columns:
-    82px
-    103px
-    94px
-    95px;
+            grid-template-columns:
+                150px
+                300px
+                210px
+                240px;
 
             align-items: center;
 
-            padding: 7px 8px;
+            padding: 10px 14px;
 
-            border: 1px solid #26313a;
-            border-left: 3px solid #ff5500;
+            border:
+                1px solid
+                #263541;
 
-            border-radius: 10px;
+            border-left:
+                5px solid
+                #ff5500;
+
+            border-radius: 14px;
 
             background:
                 linear-gradient(
                     135deg,
-                    #11171c,
-                    #0c1115
+                    #11191f 0%,
+                    #0d1318 100%
                 );
 
             box-shadow:
-                0 6px 18px rgba(
+                0 7px 22px
+                rgba(
                     0,
                     0,
                     0,
@@ -91,30 +105,36 @@
             overflow: hidden;
         }
 
-        .identity {
-            position: relative;
+        /* =========================================================
+           LEVEL + AVATAR
+        ========================================================= */
 
-            width: 82px;
-            height: 62px;
+        .identity {
+            width: 150px;
+            height: 88px;
 
             display: flex;
             align-items: center;
+
+            padding: 0;
         }
 
         .rank {
-            width: 34px;
-            height: 34px;
+            width: 60px;
+            height: 60px;
+
+            flex: 0 0 60px;
 
             display: flex;
             align-items: center;
             justify-content: center;
-
-            flex: 0 0 34px;
         }
 
         .rank img {
-            width: 34px;
-            height: 34px;
+            display: block;
+
+            width: 60px;
+            height: 60px;
 
             object-fit: contain;
         }
@@ -122,82 +142,105 @@
         .avatar-wrap {
             position: relative;
 
-            width: 48px;
-            height: 48px;
+            width: 76px;
+            height: 76px;
 
-            margin-left: 1px;
+            flex: 0 0 76px;
+
+            margin-left: 6px;
         }
 
         .avatar {
-            width: 48px;
-            height: 48px;
+            display: block;
 
-            border-radius: 50%;
+            width: 76px;
+            height: 76px;
 
             object-fit: cover;
 
-            border: 1px solid #2b3640;
+            border-radius: 50%;
+
+            border:
+                2px solid
+                #334453;
         }
 
         .online {
             position: absolute;
 
-            right: -1px;
-            bottom: 1px;
+            right: 1px;
+            bottom: 4px;
 
-            width: 10px;
-            height: 10px;
+            width: 14px;
+            height: 14px;
 
             border-radius: 50%;
 
-            background: #25e875;
+            background: #21e874;
 
-            border: 2px solid #11171c;
+            border:
+                3px solid
+                #11191f;
         }
 
         .flag {
             position: absolute;
 
-            left: 31px;
-            bottom: -2px;
+            left: 49px;
+            bottom: -3px;
 
-            width: 20px;
-            height: 13px;
+            width: 30px;
+            height: 19px;
 
             object-fit: cover;
 
-            border-radius: 2px;
+            border-radius: 3px;
 
-            border: 1px solid rgba(
-                255,
-                255,
-                255,
-                0.15
-            );
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.18
+                );
         }
 
+        /* =========================================================
+           NICK + ELO
+        ========================================================= */
+
         .player-info {
+            width: 300px;
             min-width: 0;
+
+            padding: 0 18px;
+
+            margin: 0;
         }
 
         .role {
-            color: #7890a5;
+            margin-bottom: 4px;
 
-            font-size: 6px;
-            font-weight: 700;
+            color: #83a1b8;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            line-height: 1;
 
             letter-spacing: 0.14em;
 
             text-transform: uppercase;
-
-            margin-bottom: 2px;
         }
 
         .nickname {
-            max-width: 108px;
+            max-width: 260px;
 
-            font-size: 13px;
-            font-weight: 800;
+            color: #ffffff;
+
+            font-size: 28px;
+            font-weight: 900;
 
             line-height: 1;
 
@@ -209,114 +252,187 @@
 
         .elo-line {
             display: flex;
+
             align-items: baseline;
 
-            gap: 4px;
+            gap: 7px;
 
-            margin-top: 4px;
+            margin-top: 7px;
         }
 
         .elo {
-            font-size: 14px;
+            color: #ffffff;
+
+            font-size: 24px;
             font-weight: 900;
+
+            line-height: 1;
         }
 
         .elo-label {
-            color: #8b98a5;
+            color: #81909c;
 
-            font-size: 6px;
-            font-weight: 700;
-        }
-
-        .elo24 {
-            font-size: 9px;
+            font-size: 10px;
             font-weight: 800;
         }
 
+        .elo24 {
+            color: #aebbc5;
+
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .elo24.positive {
+            color: #20e978;
+        }
+
+        .elo24.negative {
+            color: #ff5668;
+        }
+
+        /* =========================================================
+           MAIN STATS
+        ========================================================= */
+
         .stats {
-            height: 44px;
+            width: 210px;
+            height: 72px;
 
             display: grid;
 
             grid-template-columns:
-                repeat(3, 1fr);
+                1fr
+                1fr;
 
-            border-left: 1px solid #2b353e;
+            align-items: stretch;
+
+            padding: 0 16px;
+
+            border-left:
+                1px solid
+                #2b3843;
         }
 
         .stat {
+            min-width: 0;
+
             display: flex;
 
             flex-direction: column;
 
             align-items: center;
             justify-content: center;
+
+            padding: 0 4px;
         }
 
         .stat-label {
-            color: #7e8d9d;
+            color: #83919d;
 
-            font-size: 5px;
-            font-weight: 700;
+            font-size: 9px;
+            font-weight: 800;
 
-            letter-spacing: 0.08em;
+            line-height: 1;
+
+            letter-spacing: 0.06em;
 
             text-transform: uppercase;
+
+            white-space: nowrap;
         }
 
         .stat-value {
-            margin-top: 2px;
+            margin-top: 8px;
 
             color: #ffffff;
 
-            font-size: 11px;
+            font-size: 24px;
             font-weight: 900;
+
+            line-height: 1;
         }
 
+        /* =========================================================
+           WINS / LOSSES / WIN RATE
+        ========================================================= */
+
         .results {
-    height: 44px;
+            width: 240px;
+            height: 72px;
 
-    display: flex;
+            display: grid;
 
-    align-items: center;
+            grid-template-columns:
+                58px
+                58px
+                1fr;
 
-    gap: 4px;
+            align-items: center;
 
-    padding-left: 7px;
+            gap: 10px;
 
-    border-left: 1px solid #2b353e;
-}
+            padding-left: 16px;
+
+            border-left:
+                1px solid
+                #2b3843;
+        }
+
         .result {
-            width: 28px;
-            height: 32px;
+            width: 58px;
+            height: 58px;
 
             display: flex;
+
             align-items: center;
             justify-content: center;
 
-            border-radius: 6px;
+            border-radius: 11px;
 
-            background: #111a20;
+            background:
+                rgba(
+                    17,
+                    27,
+                    33,
+                    0.90
+                );
 
-            font-size: 12px;
+            font-size: 23px;
             font-weight: 900;
+
+            line-height: 1;
         }
 
-        .result.win {
-            color: #18e875;
+        .win-count {
+            color: #20e978;
+
+            border:
+                2px solid
+                rgba(
+                    32,
+                    233,
+                    120,
+                    0.48
+                );
         }
 
-        .result.loss {
-            color: #ff5264;
-        }
-.win-count {
-    color: #22e879 !important;
-}
+        .loss-count {
+            color: #ff5568;
 
-.loss-count {
-    color: #ff5264 !important;
-}
+            border:
+                2px solid
+                rgba(
+                    255,
+                    85,
+                    104,
+                    0.42
+                );
+        }
+
         .winrate {
+            width: 86px;
+
             display: flex;
 
             flex-direction: column;
@@ -326,418 +442,39 @@
         }
 
         .winrate-label {
-            color: #82909e;
+            color: #83919d;
 
-            font-size: 5px;
-            font-weight: 700;
+            font-size: 8px;
+            font-weight: 800;
+
+            line-height: 1;
+
+            letter-spacing: 0.06em;
 
             text-transform: uppercase;
+
+            white-space: nowrap;
         }
 
         .winrate-value {
-            margin-top: 2px;
+            margin-top: 7px;
 
-            font-size: 10px;
+            color: #ffffff;
+
+            font-size: 22px;
             font-weight: 900;
+
+            line-height: 1;
         }
 
-        .message {
-            width: 390px;
+        /* =========================================================
+           QUALITY / RESPONSIVE
+        ========================================================= */
 
-            padding: 8px 10px;
-
-            border: 1px solid #26313a;
-
-            border-radius: 8px;
-
-            background: #0d1318;
-
-            color: #7f8e9c;
-
-            font-size: 9px;
+        img {
+            user-select: none;
+            -webkit-user-drag: none;
         }
-
-        @media (max-width: 420px) {
-            #app,
-            .player-card,
-            .message {
-                width: 390px;
-            }
-        }
-    /* =========================================================
-   FINAL OBS STYLE
-========================================================= */
-
-html,
-body {
-    width: 100%;
-    height: auto !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    background: transparent !important;
-
-    color: #ffffff;
-
-    overflow: visible !important;
-
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-}
-
-#app {
-    width: 520px !important;
-
-    display: flex !important;
-    flex-direction: column !important;
-
-    gap: 5px !important;
-
-    overflow: visible !important;
-}
-
-.player-card {
-    width: 520px !important;
-    height: 80px !important;
-    min-height: 80px !important;
-
-    display: grid !important;
-
-    grid-template-columns:
-        92px
-        145px
-        145px
-        110px !important;
-
-    align-items: center !important;
-
-    padding: 7px 8px !important;
-
-    border: 1px solid #27333d !important;
-    border-left: 3px solid #ff5500 !important;
-
-    border-radius: 10px !important;
-
-    background:
-        linear-gradient(
-            135deg,
-            #11181d 0%,
-            #0d1216 100%
-        ) !important;
-
-    box-shadow:
-        0 5px 14px rgba(
-            0,
-            0,
-            0,
-            0.28
-        ) !important;
-
-    overflow: hidden !important;
-}
-
-/* =========================
-   LEWY BLOK
-========================= */
-
-.identity {
-    width: 92px !important;
-    height: 64px !important;
-
-    display: flex !important;
-    align-items: center !important;
-}
-
-.rank {
-    width: 36px !important;
-    height: 36px !important;
-
-    flex: 0 0 36px !important;
-
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-.rank img {
-    width: 36px !important;
-    height: 36px !important;
-
-    object-fit: contain !important;
-}
-
-.avatar-wrap {
-    position: relative !important;
-
-    width: 50px !important;
-    height: 50px !important;
-
-    margin-left: 3px !important;
-}
-
-.avatar {
-    display: block !important;
-
-    width: 50px !important;
-    height: 50px !important;
-
-    object-fit: cover !important;
-
-    border-radius: 50% !important;
-
-    border: 1px solid #2d3943 !important;
-}
-
-.online {
-    right: -1px !important;
-    bottom: 1px !important;
-
-    width: 10px !important;
-    height: 10px !important;
-
-    border: 2px solid #11181d !important;
-}
-
-.flag {
-    left: 31px !important;
-    bottom: -2px !important;
-
-    width: 20px !important;
-    height: 13px !important;
-}
-
-/* =========================
-   NICK + ELO
-========================= */
-
-.player-info {
-    width: 145px !important;
-    min-width: 0 !important;
-
-    padding: 0 7px !important;
-    margin: 0 !important;
-}
-
-.role {
-    margin-bottom: 3px !important;
-
-    color: #7f9bb0 !important;
-
-    font-size: 6px !important;
-    font-weight: 800 !important;
-
-    line-height: 1 !important;
-    letter-spacing: 0.12em !important;
-}
-
-.nickname {
-    max-width: 135px !important;
-
-    color: #ffffff !important;
-
-    font-size: 15px !important;
-    font-weight: 900 !important;
-
-    line-height: 1 !important;
-
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-}
-
-.elo-line {
-    display: flex !important;
-    align-items: baseline !important;
-
-    gap: 4px !important;
-
-    margin-top: 4px !important;
-}
-
-.elo {
-    color: #ffffff !important;
-
-    font-size: 15px !important;
-    font-weight: 900 !important;
-}
-
-.elo-label {
-    color: #7e8c98 !important;
-
-    font-size: 6px !important;
-    font-weight: 800 !important;
-}
-
-.elo24 {
-    color: #aab6c1 !important;
-
-    font-size: 9px !important;
-    font-weight: 800 !important;
-}
-
-/* =========================
-   STATYSTYKI
-========================= */
-
-.stats {
-    width: 145px !important;
-    height: 46px !important;
-
-    display: grid !important;
-
-    grid-template-columns:
-    repeat(2, 1fr) !important;
-
-    align-items: stretch !important;
-
-    padding: 0 5px !important;
-    margin: 0 !important;
-
-    border-left: 1px solid #2b353e !important;
-}
-
-.stat {
-    min-width: 0 !important;
-
-    display: flex !important;
-
-    flex-direction: column !important;
-
-    align-items: center !important;
-    justify-content: center !important;
-
-    padding: 0 !important;
-}
-
-.stat-label {
-    color: #8593a0 !important;
-
-    font-size: 6px !important;
-    font-weight: 800 !important;
-
-    line-height: 1 !important;
-
-    letter-spacing: 0.05em !important;
-
-    white-space: nowrap !important;
-}
-
-.stat-value {
-    margin-top: 4px !important;
-
-    color: #ffffff !important;
-
-    font-size: 12px !important;
-    font-weight: 900 !important;
-
-    line-height: 1 !important;
-}
-
-/* =========================
-   WINS / LOSSES / WIN RATE
-========================= */
-
-.results {
-    width: 110px !important;
-    height: 46px !important;
-
-    display: grid !important;
-
-    grid-template-columns:
-        28px
-        28px
-        1fr !important;
-
-    align-items: center !important;
-
-    gap: 5px !important;
-
-    padding: 0 0 0 7px !important;
-    margin: 0 !important;
-
-    border-left: 1px solid #2b353e !important;
-}
-
-.result {
-    width: 28px !important;
-    height: 34px !important;
-
-    display: flex !important;
-
-    align-items: center !important;
-    justify-content: center !important;
-
-    border: 0 !important;
-
-    border-radius: 7px !important;
-
-    background: #111a20 !important;
-
-    font-size: 12px !important;
-    font-weight: 900 !important;
-}
-
-.win-count {
-    color: #1ee875 !important;
-
-    box-shadow:
-        inset 0 0 0 1px rgba(
-            30,
-            232,
-            117,
-            0.18
-        ) !important;
-}
-
-.loss-count {
-    color: #ff5264 !important;
-
-    box-shadow:
-        inset 0 0 0 1px rgba(
-            255,
-            82,
-            100,
-            0.18
-        ) !important;
-}
-
-.winrate {
-    width: 42px !important;
-
-    display: flex !important;
-
-    flex-direction: column !important;
-
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-.winrate-label {
-    color: #8593a0 !important;
-
-    font-size: 5px !important;
-    font-weight: 800 !important;
-
-    line-height: 1 !important;
-
-    white-space: nowrap !important;
-}
-
-.winrate-value {
-    margin-top: 4px !important;
-
-    color: #ffffff !important;
-
-    font-size: 11px !important;
-    font-weight: 900 !important;
-
-    line-height: 1 !important;
-}
-/* UKRYJ HS */
-.stats .stat:nth-child(3) {
-    display: none !important;
-}        
     </style>
 </head>
 
@@ -761,10 +498,11 @@ body {
     const TARGET =
         params.get("target")?.trim() ||
         (
-            ME.toLowerCase() === "-tobol-"
-                ? "-krajewsky-"
-                : "-TOBOL-"
-        );
+            ME.toLowerCase() ===
+            "-tobol-".toLowerCase()
+        )
+            ? "-krajewsky-"
+            : "-TOBOL-";
 
     const RANK_IMAGES = {
         1: "https://support.faceit.com/hc/article_attachments/10525200575516",
@@ -778,13 +516,6 @@ body {
         9: "https://support.faceit.com/hc/article_attachments/10525200576028",
         10: "https://support.faceit.com/hc/article_attachments/10525189646876"
     };
-
-    let lastWebhookTimestamp = null;
-    let checkingWebhook = false;
-
-    function $(selector) {
-        return document.querySelector(selector);
-    }
 
     function formatNumber(
         value,
@@ -823,7 +554,9 @@ body {
         return String(number);
     }
 
-    function rankImage(level) {
+    function rankImage(
+        level
+    ) {
         return (
             RANK_IMAGES[
                 Number(level)
@@ -840,7 +573,9 @@ body {
 
         return (
             `${API_BASE}/avatar?url=` +
-            encodeURIComponent(avatar)
+            encodeURIComponent(
+                avatar
+            )
         );
     }
 
@@ -851,11 +586,11 @@ body {
             return "";
         }
 
-        return `
-            https://flagcdn.com/w40/${String(
-                country
-            ).toLowerCase()}.png
-        `;
+        return (
+            "https://flagcdn.com/w80/" +
+            String(country).toLowerCase() +
+            ".png"
+        );
     }
 
     function escapeHtml(
@@ -864,11 +599,26 @@ body {
         return String(
             value ?? ""
         )
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
+            .replaceAll(
+                "&",
+                "&amp;"
+            )
+            .replaceAll(
+                "<",
+                "&lt;"
+            )
+            .replaceAll(
+                ">",
+                "&gt;"
+            )
+            .replaceAll(
+                '"',
+                "&quot;"
+            )
+            .replaceAll(
+                "'",
+                "&#039;"
+            );
     }
 
     async function getPlayer(
@@ -880,7 +630,8 @@ body {
                     nickname
                 )}`,
                 {
-                    cache: "no-store"
+                    cache:
+                        "no-store"
                 }
             );
 
@@ -899,40 +650,59 @@ body {
     ) {
         const recent =
             player.recent || {};
-const today =
-    player.today || {
-        wins: 0,
-        losses: 0
-    };
+
+        const today =
+            player.today || {
+                wins: 0,
+                losses: 0,
+                kills: null,
+                deaths: null,
+                kd: null
+            };
+
         const lastMatch =
             recent.lastMatch || {};
 
-        const wins =
-            Number(recent.wins);
+        const todayWins =
+            Number(today.wins) || 0;
 
-        const losses =
-            Number(recent.losses);
+        const todayLosses =
+            Number(today.losses) || 0;
 
-       const todayWins =
-    Number(today.wins) || 0;
+        const todayMatches =
+            todayWins +
+            todayLosses;
 
-const todayLosses =
-    Number(today.losses) || 0;
+        const winrate =
+            todayMatches > 0
+                ? Math.round(
+                    (
+                        todayWins /
+                        todayMatches
+                    ) * 100
+                )
+                : 0;
 
-const todayMatches =
-    todayWins +
-    todayLosses;
+        const todayKd =
+            Number.isFinite(
+                Number(today.kd)
+            )
+                ? Number(today.kd)
+                : null;
 
-const winrate =
-    todayMatches > 0
-        ? Math.round(
-            todayWins /
-            todayMatches *
-            100
-        )
-        : 0;
-        const elo24 =
-            player.elo24h;
+        const kills =
+            Number.isFinite(
+                Number(
+                    lastMatch.kills
+                )
+            )
+                ? Number(
+                    lastMatch.kills
+                )
+                : null;
+
+        const level =
+            Number(player.level);
 
         const avatar =
             getAvatarUrl(
@@ -944,56 +714,23 @@ const winrate =
                 player.country
             );
 
-        const level =
-            Number(player.level);
+        const elo24 =
+            player.elo24h;
 
-        const kills =
-            lastMatch.kills ??
-            recent.kills;
+        let elo24Class =
+            "";
 
-        const kd =
-    Number.isFinite(
-        Number(today.kd)
-    )
-        ? Number(today.kd)
-        : null;
-
-        const hs =
-            lastMatch.headshots ??
-            recent.headshots;
-
-       const firstResult =
-    recent.form?.[0];
-
-const secondResult =
-    recent.form?.[1];
-
-function normalizeResult(result) {
-    if (
-        result === "W" ||
-        result === "w" ||
-        Number(result) > 0
-    ) {
-        return "W";
-    }
-
-    if (
-        result === "L" ||
-        result === "l" ||
-        Number(result) === 0 ||
-        Number(result) < 0
-    ) {
-        return "L";
-    }
-
-    return "—";
-}
-
-const resultOne =
-    normalizeResult(firstResult);
-
-const resultTwo =
-    normalizeResult(secondResult);
+        if (
+            Number(elo24) > 0
+        ) {
+            elo24Class =
+                "positive";
+        } else if (
+            Number(elo24) < 0
+        ) {
+            elo24Class =
+                "negative";
+        }
 
         return `
             <div class="player-card">
@@ -1023,7 +760,9 @@ const resultTwo =
                             )}"
                         >
 
-                        <span class="online"></span>
+                        <span
+                            class="online"
+                        ></span>
 
                         ${
                             flag
@@ -1031,9 +770,7 @@ const resultTwo =
                                     <img
                                         class="flag"
                                         src="${flag}"
-                                        alt="${String(
-                                            player.country || ""
-                                        ).toUpperCase()}"
+                                        alt=""
                                     >
                                   `
                                 : ""
@@ -1067,7 +804,11 @@ const resultTwo =
                             ELO
                         </span>
 
-                        <span class="elo24">
+                        <span
+                            class="elo24 ${
+                                elo24Class
+                            }"
+                        >
                             ${
                                 elo24 === null ||
                                 elo24 === undefined
@@ -1085,73 +826,77 @@ const resultTwo =
                 <div class="stats">
 
                     <div class="stat">
+
                         <div class="stat-label">
-                            Zabójstwa
+                            ZABÓJSTWA
                         </div>
 
                         <div class="stat-value">
-                            ${formatNumber(
-                                kills
-                            )}
+                            ${
+                                kills === null
+                                    ? "—"
+                                    : formatNumber(
+                                        kills
+                                    )
+                            }
                         </div>
+
                     </div>
 
                     <div class="stat">
+
                         <div class="stat-label">
                             K/D
                         </div>
 
                         <div class="stat-value">
-                            ${formatNumber(
-                                kd,
-                                2
-                            )}
-                        </div>
-                    </div>
-
-                    <div class="stat">
-                        <div class="stat-label">
-                            HS %
-                        </div>
-
-                        <div class="stat-value">
                             ${
-                                Number.isFinite(
-                                    Number(hs)
-                                )
-                                    ? `${formatNumber(
-                                        hs,
-                                        0
-                                    )}%`
-                                    : "—"
+                                todayKd === null
+                                    ? "—"
+                                    : formatNumber(
+                                        todayKd,
+                                        2
+                                    )
                             }
                         </div>
+
                     </div>
 
                 </div>
 
-                                <div class="results">
+                <div class="results">
 
-                    <div class="result win-count">
-                        ${formatNumber(today.wins)}
+                    <div
+                        class="result win-count"
+                    >
+                        ${formatNumber(
+                            todayWins
+                        )}
                     </div>
 
-                    <div class="result loss-count">
-                        ${formatNumber(today.losses)}
+                    <div
+                        class="result loss-count"
+                    >
+                        ${formatNumber(
+                            todayLosses
+                        )}
                     </div>
 
                     <div class="winrate">
 
-                        <div class="winrate-label">
+                        <div
+                            class="winrate-label"
+                        >
                             WIN RATE
                         </div>
 
-                        <div class="winrate-value">
-                            ${
-                                Number.isFinite(winrate)
-                                    ? `${formatNumber(winrate, 0)}%`
-                                    : "—"
-                            }
+                        <div
+                            class="winrate-value"
+                        >
+                            ${formatNumber(
+                                winrate,
+                                0
+                            )}%
                         </div>
 
                     </div>
@@ -1164,7 +909,9 @@ const resultTwo =
 
     async function loadWidget() {
         const app =
-            $("#app");
+            document.getElementById(
+                "app"
+            );
 
         try {
             const [
@@ -1175,15 +922,15 @@ const resultTwo =
                 getPlayer(TARGET)
             ]);
 
-           app.innerHTML =
-    renderPlayer(
-        me,
-        "YOUR PROFILE"
-    ) +
-    renderPlayer(
-        target,
-        "TARGET"
-    );
+            app.innerHTML =
+                renderPlayer(
+                    me,
+                    "YOUR PROFILE"
+                ) +
+                renderPlayer(
+                    target,
+                    "TARGET"
+                );
 
         } catch (error) {
             console.error(
@@ -1192,26 +939,46 @@ const resultTwo =
             );
 
             app.innerHTML = `
-                <div class="message">
+                <div
+                    style="
+                        width:900px;
+                        padding:20px;
+                        color:#fff;
+                        background:#11191f;
+                        border-radius:12px;
+                        font-size:16px;
+                        font-weight:800;
+                    "
+                >
                     Nie udało się pobrać danych FACEIT.
                 </div>
             `;
         }
     }
 
+    let lastWebhookTimestamp =
+        null;
+
+    let checkingWebhook =
+        false;
+
     async function checkWebhook() {
-        if (checkingWebhook) {
+        if (
+            checkingWebhook
+        ) {
             return;
         }
 
-        checkingWebhook = true;
+        checkingWebhook =
+            true;
 
         try {
             const response =
                 await fetch(
                     `${API_BASE}/status`,
                     {
-                        cache: "no-store"
+                        cache:
+                            "no-store"
                     }
                 );
 
@@ -1236,7 +1003,8 @@ const resultTwo =
             }
 
             if (
-                lastWebhookTimestamp === null
+                lastWebhookTimestamp ===
+                null
             ) {
                 lastWebhookTimestamp =
                     updatedAt;
